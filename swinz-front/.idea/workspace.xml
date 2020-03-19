@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7b4f23ab-5171-4466-a2f6-2b8cff2fe8a9" name="Default Changelist" comment="" />
+    <list default="true" id="7b4f23ab-5171-4466-a2f6-2b8cff2fe8a9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swinz-back/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,10 +25,14 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="gCQcqGIN" />
   </component>
   <component name="ProjectId" id="1YfbnjOnxkQdxj7Rq8RQXph0Jin" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -36,7 +46,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../swinz-back/swinz" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../swinz-back" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.47816092" />
@@ -103,6 +113,9 @@
       <workItem from="1584371419163" duration="9000" />
       <workItem from="1584371544808" duration="100000" />
       <workItem from="1584376714164" duration="627000" />
+      <workItem from="1584573099168" duration="565000" />
+      <workItem from="1584609102651" duration="8000" />
+      <workItem from="1584609121004" duration="228000" />
     </task>
     <servers />
   </component>
@@ -110,6 +123,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="623" y="170" key="#Main" timestamp="1584609335527">
+      <screen x="0" y="0" width="1920" height="1042" />
+    </state>
+    <state x="623" y="170" key="#Main/0.0.1920.1042/1920.0.1920.1080@0.0.1920.1042" timestamp="1584609335527" />
     <state x="560" y="181" key="#Project_Structure" timestamp="1583336889371">
       <screen x="0" y="0" width="1920" height="1038" />
     </state>
@@ -126,10 +143,11 @@
       <screen x="0" y="0" width="1920" height="1038" />
     </state>
     <state x="532" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1038/1920.0.1920.1080@0.0.1920.1038" timestamp="1584362634475" />
-    <state x="743" y="277" width="733" height="483" key="FileChooserDialogImpl" timestamp="1584376725829">
-      <screen x="0" y="0" width="1920" height="1038" />
+    <state x="743" y="278" width="733" height="483" key="FileChooserDialogImpl" timestamp="1584609154193">
+      <screen x="0" y="0" width="1920" height="1042" />
     </state>
     <state x="743" y="277" width="733" height="483" key="FileChooserDialogImpl/0.0.1920.1038/1920.0.1920.1080@0.0.1920.1038" timestamp="1584376725829" />
+    <state x="743" y="278" key="FileChooserDialogImpl/0.0.1920.1042/1920.0.1920.1080@0.0.1920.1042" timestamp="1584609154193" />
     <state width="1872" height="108" key="GridCell.Tab.0.bottom" timestamp="1584371386470">
       <screen x="0" y="0" width="1920" height="1038" />
     </state>
