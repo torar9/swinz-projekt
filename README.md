@@ -1,4 +1,4 @@
 # swinz-projekt
 členové skupiny:
-Tomáš Silber
-Tomáš Havlík
+* Tomáš Silber
+* Tomáš Havlík
