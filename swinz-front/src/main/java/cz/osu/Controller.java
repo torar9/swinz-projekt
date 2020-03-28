@@ -9,15 +9,20 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -48,8 +53,6 @@ public class Controller implements Initializable
 
         timer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>()
         {
-            boolean cycle;
-
             @Override
             public void handle(ActionEvent event)
             {
@@ -120,6 +123,23 @@ public class Controller implements Initializable
     @FXML
     private void handleRoomButtonClick()
     {
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL url = new File("src/main/java/cz/osu/roomOverview.fxml").toURI().toURL();
+            fxmlLoader.setLocation(url);
+            System.out.println(fxmlLoader.getLocation());
+
+            Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+            Stage stage = new Stage();
+            stage.setTitle("Přehled místností");
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @FXML

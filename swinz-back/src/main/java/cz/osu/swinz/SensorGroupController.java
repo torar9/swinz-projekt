@@ -54,7 +54,6 @@ public class SensorGroupController
         for(Room e : roomRepo.findAll())
         {
             e.setTargetTemperature(temp);
-            e.getHouse().setTargetTemperature(temp);
             roomRepo.save(e);
             houseRepo.save(e.getHouse());
             return true;

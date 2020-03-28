@@ -76,7 +76,5 @@ public class RoomListViewCell extends ListCell<Room>
             setText(null);
             setGraphic(mainListGrid);
         }
-
     }
-
 }

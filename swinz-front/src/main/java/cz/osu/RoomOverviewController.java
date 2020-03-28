@@ -1,11 +1,17 @@
 package cz.osu;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.util.Duration;
 
-import javax.swing.text.html.ListView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,12 +34,33 @@ public class RoomOverviewController implements Initializable
     @FXML
     private ListView roomListView;
 
+    private ObservableList<Room> roomObservableList;
+    private Timeline timer;
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        roomListView.setItems(roomObservableList);
+        roomListView.setCellFactory(studentListView -> new RoomOverviewCell());
+
+        timer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent event)
+            {
+            }
+        }));
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
     }
 
-    public RoomOverviewController()
+    @FXML
+    private void handleNewButtonClick()
+    {
+    }
+
+    @FXML
+    private void handleHomeButtonClick()
     {
     }
 }

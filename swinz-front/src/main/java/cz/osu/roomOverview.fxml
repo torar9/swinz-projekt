@@ -125,7 +125,7 @@
             </GridPane>
          </children>
       </GridPane>
-      <GridPane style="-fx-border-color: greylight; -fx-background-color: white;">
+      <GridPane style="-fx-border-color: lightgrey; -fx-background-color: white;">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
