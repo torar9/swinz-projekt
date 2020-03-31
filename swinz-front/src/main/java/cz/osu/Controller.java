@@ -45,6 +45,11 @@ public class Controller implements Initializable
     private ObservableList<Room> roomObservableList;
     private Timeline timer;
 
+    public Controller()
+    {
+        roomObservableList = FXCollections.observableArrayList();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -113,11 +118,6 @@ public class Controller implements Initializable
         {
             e.printStackTrace();
         }
-    }
-
-    public Controller()
-    {
-        roomObservableList = FXCollections.observableArrayList();
     }
 
     @FXML
