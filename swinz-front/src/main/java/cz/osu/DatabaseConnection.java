@@ -2,6 +2,8 @@ package cz.osu;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import cz.osu.data.GroupReport;
+import cz.osu.data.Room;
 import okhttp3.*;
 
 import java.io.IOException;

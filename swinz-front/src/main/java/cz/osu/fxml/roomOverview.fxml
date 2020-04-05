@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.osu.RoomOverviewController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.osu.Controllers.RoomOverviewController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.0" minWidth="10.0" prefWidth="183.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="317.0" />
@@ -138,12 +138,12 @@
             <ListView fx:id="roomListView" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" />
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#handleNewButtonClick" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <image>
-                  <Image url="@../../../resources/images/new_button.png" />
+                  <Image url="@../../../../resources/images/new_button.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="33.0" fitWidth="40.0" onMouseClicked="#handleHomeButtonClick" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../../../resources/images/house_button.png" />
+                  <Image url="@../../../../resources/images/house_button.png" />
                </image>
                <GridPane.margin>
                   <Insets bottom="5.0" />

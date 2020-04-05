@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.osu.Controller">
+<GridPane minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.osu.Controllers.Controller">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -60,7 +60,7 @@
                </font></Label>
             <ImageView fx:id="tempButton" fitHeight="32.0" fitWidth="32.0" layoutX="50.0" layoutY="50.0" onMouseClicked="#handleTempButtonClick" pickOnBounds="true" preserveRatio="true" x="50.0" y="50.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../../resources/images/status_red.png" />
+                  <Image url="@../../../../resources/images/status_red.png" />
                </image>
                <rotationAxis>
                   <Point3D />

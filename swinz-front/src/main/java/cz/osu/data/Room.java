@@ -1,4 +1,4 @@
-package cz.osu;
+package cz.osu.data;
 
 public class Room
 {

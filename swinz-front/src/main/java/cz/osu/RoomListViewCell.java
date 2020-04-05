@@ -1,5 +1,6 @@
 package cz.osu;
 
+import cz.osu.data.Room;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -41,7 +42,7 @@ public class RoomListViewCell extends ListCell<Room>
             {
                 try
                 {
-                    URL url = new File("src/main/java/cz/osu/mainListCell.fxml").toURI().toURL();
+                    URL url = new File("src/main/java/cz/osu/fxml/mainListCell.fxml").toURI().toURL();
 
                     mLLoader = new FXMLLoader(url);
                     mLLoader.setController(this);

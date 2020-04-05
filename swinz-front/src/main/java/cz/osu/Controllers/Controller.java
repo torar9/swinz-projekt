@@ -1,6 +1,10 @@
-package cz.osu;
+package cz.osu.Controllers;
 
 
+import cz.osu.RoomListViewCell;
+import cz.osu.DatabaseConnection;
+import cz.osu.data.GroupReport;
+import cz.osu.data.Room;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -126,7 +130,7 @@ public class Controller implements Initializable
         try
         {
             FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = new File("src/main/java/cz/osu/roomOverview.fxml").toURI().toURL();
+            URL url = new File("src/main/java/cz/osu/fxml/roomOverview.fxml").toURI().toURL();
             fxmlLoader.setLocation(url);
             System.out.println(fxmlLoader.getLocation());
 

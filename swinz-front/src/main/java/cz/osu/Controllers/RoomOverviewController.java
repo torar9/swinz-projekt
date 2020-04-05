@@ -1,5 +1,9 @@
-package cz.osu;
+package cz.osu.Controllers;
 
+import cz.osu.RoomOverviewCell;
+import cz.osu.DatabaseConnection;
+import cz.osu.data.GroupReport;
+import cz.osu.data.Room;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
