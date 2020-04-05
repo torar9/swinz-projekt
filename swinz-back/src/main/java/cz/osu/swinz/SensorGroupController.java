@@ -8,12 +8,16 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Optional;
 
 @EnableScheduling
 @RestController
 public class SensorGroupController
 {
+    @PersistenceContext
+    EntityManager ent;
     @Autowired
     private RoomRepository roomRepo;
     @Autowired
@@ -32,6 +36,14 @@ public class SensorGroupController
     public @ResponseBody boolean isAlive()
     {
         return true;
+    }
+
+    @GetMapping(path="/test")
+    public @ResponseBody String getStatistics()
+    {
+        //Object averageConsumption = ent.createNativeQuery("Select avg(power_consumption) from room_reports").getResultList().get(0);
+
+        return "F";
     }
 
     @PostMapping(path="/groups/add")

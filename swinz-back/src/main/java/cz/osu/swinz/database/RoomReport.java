@@ -1,6 +1,5 @@
 package cz.osu.swinz.database;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
