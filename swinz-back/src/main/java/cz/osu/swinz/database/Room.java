@@ -59,7 +59,7 @@ public class Room
         this.name = name;
     }
 
-    public boolean isHeaterState()
+    public boolean getHeaterState()
     {
         return heaterState;
     }

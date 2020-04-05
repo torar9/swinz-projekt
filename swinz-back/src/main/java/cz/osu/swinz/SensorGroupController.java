@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
-import java.util.List;
 import java.util.Optional;
 
 @EnableScheduling
@@ -122,7 +121,7 @@ public class SensorGroupController
         {
             Room r = roomRepo.findById(id).get();
 
-            return new GroupReport(TemperatureSensor.readTemperature(), PowerConsumptionSensor.readPowerConsumption(), LightSensor.isLightOn(), r.isHeaterState());
+            return new GroupReport(TemperatureSensor.readTemperature(), PowerConsumptionSensor.readPowerConsumption(), LightSensor.isLightOn(), r.getHeaterState());
         }
 
         throw new Exception("Unable to find room");
@@ -168,7 +167,7 @@ public class SensorGroupController
     {//int id, String name, double temp, double powerConsumption, boolean lightOn
         if(roomRepo.findById(id).isPresent())
         {
-            return roomRepo.findById(id).get().isHeaterState();
+            return roomRepo.findById(id).get().getHeaterState();
         }
 
         throw new Exception("Unable to find room");
@@ -238,7 +237,7 @@ public class SensorGroupController
     {
         for(Room e : roomRepo.findAll())
         {//double temperature, double powerConsumption, boolean isLightOn, Room room
-            RoomReport rep = new RoomReport(TemperatureSensor.readTemperature(), PowerConsumptionSensor.readPowerConsumption(), LightSensor.isLightOn(), e);
+            RoomReport rep = new RoomReport(TemperatureSensor.readTemperature(), PowerConsumptionSensor.readPowerConsumption(), e.getHeaterState(), LightSensor.isLightOn(), e);
             reportRepo.save(rep);
         }
     }

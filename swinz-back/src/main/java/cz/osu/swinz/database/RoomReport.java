@@ -14,6 +14,7 @@ public class RoomReport
     private int id;
     private double temperature;
     private double powerConsumption;
+    private boolean isHeaterOn;
     private boolean isLightOn;
 
     @CreationTimestamp
@@ -27,10 +28,11 @@ public class RoomReport
     {
     }
 
-    public RoomReport(double temperature, double powerConsumption, boolean isLightOn, Room room)
+    public RoomReport(double temperature, double powerConsumption, boolean isHeaterOn, boolean isLightOn, Room room)
     {
         this.temperature = temperature;
         this.powerConsumption = powerConsumption;
+        this.isHeaterOn = isHeaterOn;
         this.isLightOn = isLightOn;
         this.room = room;
     }
@@ -95,6 +97,16 @@ public class RoomReport
         this.reportDate = reportDate;
     }
 
+    public boolean isHeaterOn()
+    {
+        return isHeaterOn;
+    }
+
+    public void setHeaterOn(boolean heaterOn)
+    {
+        isHeaterOn = heaterOn;
+    }
+
     @Override
     public String toString()
     {
@@ -102,6 +114,7 @@ public class RoomReport
                 "id=" + id +
                 ", temperature=" + temperature +
                 ", powerConsumption=" + powerConsumption +
+                ", isHeaterOn=" + isHeaterOn +
                 ", isLightOn=" + isLightOn +
                 ", reportDate=" + reportDate +
                 ", room=" + room +
