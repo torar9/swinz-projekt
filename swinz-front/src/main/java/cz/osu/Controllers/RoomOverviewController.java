@@ -74,6 +74,11 @@ public class RoomOverviewController implements Initializable
         timer.play();
 
         update();
+
+        if(!roomObservableList.isEmpty())
+        {
+            room = roomObservableList.get(0);
+        }
     }
 
     private void update()
@@ -133,8 +138,6 @@ public class RoomOverviewController implements Initializable
             this.room = (Room) roomListView.getSelectionModel().getSelectedItem();
             this.tempSliderLabel.setText(Double.toString(room.getTargetTemperature()));
             tempSlider.setValue(room.getTargetTemperature());
-            System.out.println("Room id: " + room.getId());
-            System.out.println("Room name: " + room.getName());
         }
     }
 

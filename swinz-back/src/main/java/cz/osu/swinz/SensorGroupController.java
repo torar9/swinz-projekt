@@ -269,28 +269,30 @@ public class SensorGroupController
     @Scheduled(fixedDelay=1000)
     private void checkTemps()
     {
-        System.out.println("Check");
-        for(Room e : roomRepo.findAll())
+        for(House h : houseRepo.findAll())
         {
-            double tmp = TemperatureSensor.readTemperature();
+            for(Room e : roomRepo.findAll())
+            {
+                if(!h.isHeaterOn())
+                {
+                    double tmp = TemperatureSensor.readTemperature();
 
-            if(e.isForceHeater())
-            {
-                e.setHeaterState(true);
-                System.out.println("check 1");
-            }
+                    if(e.isForceHeater())
+                    {
+                        e.setHeaterState(true);
+                    }
 
-            if(tmp < e.getTargetTemperature())
-            {
-                e.setHeaterState(true);
-                System.out.println("check 2");
+                    if(tmp < e.getTargetTemperature())
+                    {
+                        e.setHeaterState(true);
+                    }
+                    else if(!e.isForceHeater() && (tmp > e.getTargetTemperature()))
+                    {
+                        e.setHeaterState(false);
+                    }
+                    roomRepo.save(e);
+                }
             }
-            else if(!e.isForceHeater() && (tmp > e.getTargetTemperature()))
-            {
-                e.setHeaterState(false);
-                System.out.println("check 3");
-            }
-            roomRepo.save(e);
         }
     }
 
