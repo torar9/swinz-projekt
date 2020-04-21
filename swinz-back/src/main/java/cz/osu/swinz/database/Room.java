@@ -12,6 +12,7 @@ public class Room
     private int id;
     private String name;
     private boolean heaterState = false;
+    private boolean forceHeater = false;
     private double targetTemperature = 20.0;
 
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -84,6 +85,17 @@ public class Room
         return house;
     }
 
+    public boolean isForceHeater()
+    {
+        return forceHeater;
+    }
+
+    public void setForceHeater(boolean forceHeater)
+    {
+        this.forceHeater = forceHeater;
+    }
+
+    /*
     @Override
     public String toString()
     {
@@ -91,6 +103,19 @@ public class Room
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", heaterState=" + heaterState +
+                ", targetTemperature=" + targetTemperature +
+                ", house=" + house +
+                '}';
+    }*/
+
+    @Override
+    public String toString()
+    {
+        return "Room{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", heaterState=" + heaterState +
+                ", forceHeater=" + forceHeater +
                 ", targetTemperature=" + targetTemperature +
                 ", house=" + house +
                 '}';

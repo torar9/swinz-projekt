@@ -186,6 +186,30 @@ public class SensorGroupController
         throw new Exception("Unable to find room");
     }
 
+    @PostMapping(path="/groups/{id}/heaterForce")
+    public @ResponseBody boolean setRoomHeaterForced(@PathVariable int id, @RequestParam boolean state) throws Exception
+    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+        if(roomRepo.findById(id).isPresent())
+        {
+            roomRepo.findById(id).get().setForceHeater(state);
+            roomRepo.save(roomRepo.findById(id).get());
+            return true;
+        }
+
+        throw new Exception("Unable to find room");
+    }
+
+    @GetMapping(path="/groups/{id}/heaterForce")
+    public @ResponseBody boolean getRoomHeaterForce(@PathVariable int id) throws Exception
+    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+        if(roomRepo.findById(id).isPresent())
+        {
+            return roomRepo.findById(id).get().isForceHeater();
+        }
+
+        throw new Exception("Unable to find room");
+    }
+
     @GetMapping(path="/groups/{id}/power")
     public @ResponseBody double getRoomPowerConsumption(@PathVariable int id) throws Exception
     {//int id, String name, double temp, double powerConsumption, boolean lightOn
@@ -239,6 +263,34 @@ public class SensorGroupController
         {//double temperature, double powerConsumption, boolean isLightOn, Room room
             RoomReport rep = new RoomReport(TemperatureSensor.readTemperature(), PowerConsumptionSensor.readPowerConsumption(), e.getHeaterState(), LightSensor.isLightOn(), e);
             reportRepo.save(rep);
+        }
+    }
+
+    @Scheduled(fixedDelay=1000)
+    private void checkTemps()
+    {
+        System.out.println("Check");
+        for(Room e : roomRepo.findAll())
+        {
+            double tmp = TemperatureSensor.readTemperature();
+
+            if(e.isForceHeater())
+            {
+                e.setHeaterState(true);
+                System.out.println("check 1");
+            }
+
+            if(tmp < e.getTargetTemperature())
+            {
+                e.setHeaterState(true);
+                System.out.println("check 2");
+            }
+            else if(!e.isForceHeater() && (tmp > e.getTargetTemperature()))
+            {
+                e.setHeaterState(false);
+                System.out.println("check 3");
+            }
+            roomRepo.save(e);
         }
     }
 

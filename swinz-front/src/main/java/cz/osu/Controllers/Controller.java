@@ -48,6 +48,7 @@ public class Controller implements Initializable
 
     private ObservableList<Room> roomObservableList;
     private Timeline timer;
+    private DatabaseConnection db;
 
     public Controller()
     {
@@ -57,6 +58,7 @@ public class Controller implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        db = DatabaseConnection.getInstance();
         mainList.setItems(roomObservableList);
         mainList.setCellFactory(studentListView -> new RoomListViewCell());
 
@@ -79,8 +81,6 @@ public class Controller implements Initializable
     {
         try
         {
-            DatabaseConnection db = DatabaseConnection.getInstance();
-
             update();
 
             boolean globalHeaterState= db.getGlobalHeaterState();
@@ -109,10 +109,10 @@ public class Controller implements Initializable
         roomObservableList.clear();
         try
         {
-            DatabaseConnection db = DatabaseConnection.getInstance();
             ArrayList<Room> list = db.getListOfRooms();
             for (Room r : list)
             {
+                System.out.println("state: " + r.getHeaterState());
                 GroupReport report = db.getRoomReport(r);
                 r.setReport(report);
                 roomObservableList.add(r);
@@ -154,7 +154,6 @@ public class Controller implements Initializable
     @FXML
     private void handleTempButtonClick()
     {
-        DatabaseConnection db = DatabaseConnection.getInstance();
         try
         {
             boolean state = db.getGlobalHeaterState();
@@ -195,6 +194,7 @@ public class Controller implements Initializable
         }
         catch(Exception e)
         {
+            e.printStackTrace();
         }
     }
 }

@@ -5,6 +5,7 @@ public class Room
     private int id;
     private String name;
     private boolean heaterState;
+    private boolean forceHeater;
     private GroupReport report;
     private double targetTemperature;
 
@@ -65,6 +66,16 @@ public class Room
     public void setTargetTemperature(double targetTemperature)
     {
         this.targetTemperature = targetTemperature;
+    }
+
+    public boolean isForceHeater()
+    {
+        return forceHeater;
+    }
+
+    public void setForceHeater(boolean forceHeater)
+    {
+        this.forceHeater = forceHeater;
     }
 
     @Override

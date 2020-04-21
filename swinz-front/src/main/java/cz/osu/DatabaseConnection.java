@@ -25,8 +25,10 @@ public class DatabaseConnection
     {
         Request req = new Request.Builder().url(baseURL + where).build();
         Response resp = client.newCall(req).execute();
+        String result = resp.body().string();
+        resp.close();
 
-        return resp.body().string();
+        return result;
     }
 
     public boolean testConnection()
@@ -35,7 +37,10 @@ public class DatabaseConnection
         {
             Request req = new Request.Builder().url(baseURL + "/status").build();
             Response resp = client.newCall(req).execute();
-            return resp.isSuccessful();
+            boolean result = resp.isSuccessful();
+            resp.close();
+
+            return result;
         }
         catch (IOException e)
         {
@@ -66,6 +71,14 @@ public class DatabaseConnection
     public Double getRoomTemperature(int id) throws IOException
     {
         String data = getResponse("groups/" + id + "/temp");
+
+        Gson gson = new Gson();
+        return gson.fromJson(data, Double.class);
+    }
+
+    public Double getRoomTemperatureForce(int id) throws IOException
+    {
+        String data = getResponse("groups/" + id + "/heaterForce\"");
 
         Gson gson = new Gson();
         return gson.fromJson(data, Double.class);
@@ -110,8 +123,29 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        boolean result = resp.isSuccessful();
+        resp.close();
 
-        return resp.isSuccessful();
+        return result;
+    }
+
+    public boolean setRoomHeaterStateForce(int id, boolean state) throws IOException
+    {
+        RequestBody body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("state", Boolean.toString(state))
+                .build();
+
+        Request req = new Request.Builder()
+                .url(baseURL + "groups/" + id + "/heaterForce")
+                .post(body)
+                .build();
+
+        Response resp = client.newCall(req).execute();
+        boolean result = resp.isSuccessful();
+        resp.close();
+
+        return result;
     }
 
     public GroupReport getRoomReport(Room room) throws IOException
@@ -146,8 +180,10 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        boolean result = resp.isSuccessful();
+        resp.close();
 
-        return resp.isSuccessful();
+        return result;
     }
 
     public double getGlobalTemp() throws IOException
@@ -172,8 +208,10 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        boolean result = resp.isSuccessful();
+        resp.close();
 
-        return resp.isSuccessful();
+        return result;
     }
 
     public boolean getGlobalHeaterState() throws IOException
@@ -198,8 +236,10 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        boolean result = resp.isSuccessful();
+        resp.close();
 
-        return resp.isSuccessful();
+        return result;
     }
 
     public boolean setRoomTargetTemp(Room room, double temp) throws IOException
@@ -220,8 +260,10 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        boolean result = resp.isSuccessful();
+        resp.close();
 
-        return resp.isSuccessful();
+        return result;
     }
 
     public boolean removeRoom(Room room) throws IOException
@@ -242,7 +284,9 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        boolean result = resp.isSuccessful();
+        resp.close();
 
-        return resp.isSuccessful();
+        return result;
     }
 }

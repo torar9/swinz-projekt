@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -101,7 +99,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="tempSlider" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Slider fx:id="tempSlider" max="35.0" min="5.0" onMouseDragged="#handleTempSliderDragEvent" onMouseReleased="#handleTempSliderReleaseEvent" value="20.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                   <Label text="požadovaná teplota" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
                         <Font size="12.0" />
@@ -123,6 +121,7 @@
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </GridPane.margin>
             </GridPane>
+            <ImageView fx:id="roomHeaterImg" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#handleRoomTempForce" pickOnBounds="true" preserveRatio="true" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
          </children>
       </GridPane>
       <GridPane style="-fx-border-color: lightgrey; -fx-background-color: white;">
@@ -135,7 +134,7 @@
           <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="roomListView" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" />
+            <ListView fx:id="roomListView" onMouseClicked="#handleOnItemClick" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" />
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#handleNewButtonClick" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <image>
                   <Image url="@../../../../resources/images/new_button.png" />

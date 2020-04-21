@@ -17,7 +17,6 @@ public class RoomOverviewCell extends ListCell<Room>
         {
             setText(null);
             setGraphic(null);
-
         }
         else
         {
