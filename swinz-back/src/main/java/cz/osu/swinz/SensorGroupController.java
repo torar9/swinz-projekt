@@ -2,6 +2,9 @@ package cz.osu.swinz;
 
 import cz.osu.swinz.database.*;
 import cz.osu.swinz.home.*;
+import cz.osu.swinz.home.sensors.LightSensor;
+import cz.osu.swinz.home.sensors.PowerConsumptionSensor;
+import cz.osu.swinz.home.sensors.TemperatureSensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -43,6 +46,19 @@ public class SensorGroupController
         //Object averageConsumption = ent.createNativeQuery("Select avg(power_consumption) from room_reports").getResultList().get(0);
 
         return "F";
+    }
+
+    @GetMapping(path="/groups/{id}/stats")
+    public @ResponseBody Iterable<RoomMonthStatistics> getStats(@PathVariable int id)
+    {
+        if(roomRepo.findById(id).isPresent())
+        {
+            Room room = roomRepo.findById(id).get();
+            RoomStatsGenerator gen = new RoomStatsGenerator(ent);
+
+            return gen.getRoomStats(room);
+        }
+        else return null;
     }
 
     @PostMapping(path="/groups/add")
@@ -99,7 +115,7 @@ public class SensorGroupController
 
     @GetMapping(path="/groups/{id}")
     public @ResponseBody Room getRoom(@PathVariable int id) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         if(roomRepo.findById(id).isPresent())
         {
             return roomRepo.findById(id).get();
@@ -116,7 +132,7 @@ public class SensorGroupController
 
     @GetMapping(path="/groups/{id}/report")
     public @ResponseBody GroupReport getRoomReport(@PathVariable int id) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         if(roomRepo.findById(id).isPresent())
         {
             Room r = roomRepo.findById(id).get();
@@ -129,7 +145,7 @@ public class SensorGroupController
 
     @GetMapping(path="/groups/{id}/temp")
     public @ResponseBody double getRoomTemperature(@PathVariable int id) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         if(roomRepo.findById(id).isPresent())
         {
             return TemperatureSensor.readTemperature();
@@ -140,7 +156,7 @@ public class SensorGroupController
 
     @GetMapping(path="/groups/{id}/targetTemp")
     public @ResponseBody double getRoomTargetTemperature(@PathVariable int id) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         if(roomRepo.findById(id).isPresent())
         {
             return roomRepo.findById(id).get().getTargetTemperature();
@@ -151,7 +167,7 @@ public class SensorGroupController
 
     @PostMapping(path="/groups/{id}/targetTemp")
     public @ResponseBody boolean setRoomTargetTemperature(@PathVariable int id, @RequestParam double temp) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         if(roomRepo.findById(id).isPresent())
         {
             roomRepo.findById(id).get().setTargetTemperature(temp);
@@ -164,7 +180,7 @@ public class SensorGroupController
 
     @GetMapping(path="/groups/{id}/heater")
     public @ResponseBody boolean getRoomHeater(@PathVariable int id) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         if(roomRepo.findById(id).isPresent())
         {
             return roomRepo.findById(id).get().getHeaterState();
@@ -175,7 +191,7 @@ public class SensorGroupController
 
     @PostMapping(path="/groups/{id}/heater")
     public @ResponseBody boolean setRoomHeater(@PathVariable int id, @RequestParam boolean state) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         if(roomRepo.findById(id).isPresent())
         {
             roomRepo.findById(id).get().setHeaterState(state);
@@ -188,7 +204,7 @@ public class SensorGroupController
 
     @PostMapping(path="/groups/{id}/heaterForce")
     public @ResponseBody boolean setRoomHeaterForced(@PathVariable int id, @RequestParam boolean state) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         if(roomRepo.findById(id).isPresent())
         {
             roomRepo.findById(id).get().setForceHeater(state);
@@ -201,7 +217,7 @@ public class SensorGroupController
 
     @GetMapping(path="/groups/{id}/heaterForce")
     public @ResponseBody boolean getRoomHeaterForce(@PathVariable int id) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         if(roomRepo.findById(id).isPresent())
         {
             return roomRepo.findById(id).get().isForceHeater();
@@ -211,8 +227,9 @@ public class SensorGroupController
     }
 
     @GetMapping(path="/groups/{id}/power")
-    public @ResponseBody double getRoomPowerConsumption(@PathVariable int id) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    public @ResponseBody
+    double getRoomPowerConsumption(@PathVariable int id) throws Exception
+    {
         if(roomRepo.findById(id).isPresent())
         {
             return PowerConsumptionSensor.readPowerConsumption();
@@ -223,7 +240,7 @@ public class SensorGroupController
 
     @GetMapping(path="/groups/globalHeater")
     public @ResponseBody boolean getGlovalHeaterState() throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         for(House h : houseRepo.findAll())
         {
             return h.isHeaterOn();
@@ -234,7 +251,7 @@ public class SensorGroupController
 
     @PostMapping(path="/groups/globalHeater")
     public @ResponseBody boolean setGlovalHeaterState(@RequestParam boolean state) throws Exception
-    {//int id, String name, double temp, double powerConsumption, boolean lightOn
+    {
         for(House h : houseRepo.findAll())
         {
             h.setHeaterOn(state);
@@ -260,7 +277,7 @@ public class SensorGroupController
     private void saveReports()
     {
         for(Room e : roomRepo.findAll())
-        {//double temperature, double powerConsumption, boolean isLightOn, Room room
+        {
             RoomReport rep = new RoomReport(TemperatureSensor.readTemperature(), PowerConsumptionSensor.readPowerConsumption(), e.getHeaterState(), LightSensor.isLightOn(), e);
             reportRepo.save(rep);
         }

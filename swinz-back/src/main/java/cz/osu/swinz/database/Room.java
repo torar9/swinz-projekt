@@ -95,19 +95,6 @@ public class Room
         this.forceHeater = forceHeater;
     }
 
-    /*
-    @Override
-    public String toString()
-    {
-        return "Room{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", heaterState=" + heaterState +
-                ", targetTemperature=" + targetTemperature +
-                ", house=" + house +
-                '}';
-    }*/
-
     @Override
     public String toString()
     {

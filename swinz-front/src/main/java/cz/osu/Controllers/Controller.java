@@ -112,7 +112,6 @@ public class Controller implements Initializable
             ArrayList<Room> list = db.getListOfRooms();
             for (Room r : list)
             {
-                System.out.println("state: " + r.getHeaterState());
                 GroupReport report = db.getRoomReport(r);
                 r.setReport(report);
                 roomObservableList.add(r);
