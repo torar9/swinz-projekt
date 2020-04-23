@@ -78,6 +78,8 @@ public class RoomOverviewController implements Initializable
         if(!roomObservableList.isEmpty())
         {
             room = roomObservableList.get(0);
+            this.tempSliderLabel.setText(Double.toString(room.getTargetTemperature()));
+            tempSlider.setValue(room.getTargetTemperature());
         }
     }
 
@@ -101,6 +103,8 @@ public class RoomOverviewController implements Initializable
                 if(room.getHeaterState())
                     heaterStatusLabel.setText("Topení je zapnuto");
                 else heaterStatusLabel.setText("Topení je vypnuto");
+
+                timeLabel.setText(db.getAvgRoomLightStat(room) + " min");
 
                 GroupReport gp = room.getReport();
                 this.consumptionLabel.setText(Double.toString(gp.getPowerConsumption()));

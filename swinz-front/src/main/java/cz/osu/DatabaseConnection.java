@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import cz.osu.data.GroupReport;
 import cz.osu.data.Room;
+import cz.osu.data.RoomStats;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -286,6 +287,35 @@ public class DatabaseConnection
         Response resp = client.newCall(req).execute();
         boolean result = resp.isSuccessful();
         resp.close();
+
+        return result;
+    }
+
+    public int getHeaterStat() throws IOException
+    {
+        String data = getResponse("groups/stats/heater");
+
+        Gson gson = new Gson();
+
+        return gson.fromJson(data, Integer.class);
+    }
+
+    public double getAvgRoomLightStat(Room room) throws IOException
+    {
+        String data = getResponse("groups/" + room.getId() + "/stats/lightWeeks");
+
+        Gson gson = new Gson();
+
+        return gson.fromJson(data, Double.class);
+    }
+
+    public ArrayList<RoomStats> getListOfMonthStats() throws IOException
+    {
+        String data = getResponse("groups/stats");
+
+        Gson gson = new Gson();
+        ArrayList<RoomStats> result = gson.fromJson(data, new TypeToken<ArrayList<RoomStats>>(){}.getType());
+        System.out.println(result);
 
         return result;
     }

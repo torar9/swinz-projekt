@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @EnableScheduling
@@ -48,17 +50,41 @@ public class SensorGroupController
         return "F";
     }
 
-    @GetMapping(path="/groups/{id}/stats")
-    public @ResponseBody Iterable<RoomMonthStatistics> getStats(@PathVariable int id)
+    @GetMapping(path="/groups/stats")
+    public @ResponseBody Iterable<RoomStats> getRoomStats()
+    {
+        List<RoomStats> list = new ArrayList<>();
+
+        for (Room room : roomRepo.findAll())
+        {
+            RoomStatsGenerator gen = new RoomStatsGenerator(ent);
+            List<RoomMonthStatistics> months = gen.getRoomStats(room);
+
+            list.add(new RoomStats(room.getName(), months));
+        }
+
+        return list;
+    }
+
+    @GetMapping(path="/groups/{id}/stats/lightWeeks")
+    public @ResponseBody double getMonthStats(@PathVariable int id)
     {
         if(roomRepo.findById(id).isPresent())
         {
             Room room = roomRepo.findById(id).get();
             RoomStatsGenerator gen = new RoomStatsGenerator(ent);
 
-            return gen.getRoomStats(room);
+            return gen.getAverageLightTwoWeeks(room);
         }
-        else return null;
+        else return -1;
+    }
+
+    @GetMapping(path="/groups/stats/heater")
+    public @ResponseBody int getHeaterInYear()
+    {
+        RoomStatsGenerator gen = new RoomStatsGenerator(ent);
+
+        return gen.getHeatDaysInYear();
     }
 
     @PostMapping(path="/groups/add")

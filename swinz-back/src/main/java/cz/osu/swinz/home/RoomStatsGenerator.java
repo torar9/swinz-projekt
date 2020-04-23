@@ -34,7 +34,7 @@ public class RoomStatsGenerator
         months.put(12, "prosinec");
     }
 
-    public BigDecimal getAverageLightTwoWeeks(Room room)
+    public double getAverageLightTwoWeeks(Room room)
     {
         BigDecimal averageLightTwoWeeks = (BigDecimal) ent.createNativeQuery("select avg(Count)\n" +
                 "from(select count(*) as Count\n" +
@@ -42,7 +42,16 @@ public class RoomStatsGenerator
                 "where report_date between (now() - INTERVAL 14 day) and now() and room_id = " + room.getId() + " and is_light_on = 1\n" +
                 "group by day(report_date)) as Counts;").getResultList().get(0);
 
-        return averageLightTwoWeeks;
+        return averageLightTwoWeeks.doubleValue();
+    }
+
+    public int getHeatDaysInYear()
+    {
+        BigInteger heatDays = (BigInteger) ent.createNativeQuery("select count(distinct day(report_date))\n" +
+                "        from room_reports\n" +
+                "        where report_date >= (sysdate() - interval 1 year) and is_heater_on = 1;").getResultList().get(0);
+
+        return heatDays.intValue();
     }
 
     public List<RoomMonthStatistics> getRoomStats(Room room)
@@ -65,7 +74,6 @@ public class RoomStatsGenerator
             BigInteger heaterMonth = (BigInteger) ent.createNativeQuery("select count(distinct day(report_date))\n" +
                     "from room_reports\n" +
                     "where month(report_date) = " + month.intValue() + " and is_heater_on = 1 and room_id = " + room.getId() + ";").getResultList().get(0);
-            System.out.println("heater: " + heaterMonth);
 
             BigDecimal averageLight = (BigDecimal) ent.createNativeQuery("select avg(Count)\n" +
                     "from(select count(*) as Count\n" +
@@ -73,7 +81,6 @@ public class RoomStatsGenerator
                     "where month(report_date) = " + month.intValue() + " and room_id = " + room.getId() + " and is_light_on = 1\n" +
                     "group by day(report_date)) as Counts;").getResultList().get(0);
             averageLight = averageLight.setScale(2, BigDecimal.ROUND_HALF_UP);
-            System.out.println("avgLight: " + averageLight);
 
             Double power = (Double) ent.createNativeQuery("select sum(dny)\n" +
                     "from (\n" +

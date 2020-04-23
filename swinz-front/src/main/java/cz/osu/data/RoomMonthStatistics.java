@@ -1,8 +1,7 @@
-package cz.osu.swinz.home;
+package cz.osu.data;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
 
 public class RoomMonthStatistics
 {

@@ -45,6 +45,8 @@ public class Controller implements Initializable
     private Button roomButton;
     @FXML
     private Button statButton;
+    @FXML
+    private Label mainHeaterLabel;
 
     private ObservableList<Room> roomObservableList;
     private Timeline timer;
@@ -82,6 +84,8 @@ public class Controller implements Initializable
         try
         {
             update();
+
+            mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(db.getHeaterStat()) + " dní za poslední 2 týdny");
 
             boolean globalHeaterState= db.getGlobalHeaterState();
             if(globalHeaterState)
@@ -131,7 +135,6 @@ public class Controller implements Initializable
             FXMLLoader fxmlLoader = new FXMLLoader();
             URL url = new File("src/main/java/cz/osu/fxml/roomOverview.fxml").toURI().toURL();
             fxmlLoader.setLocation(url);
-            System.out.println(fxmlLoader.getLocation());
 
             Scene scene = new Scene(fxmlLoader.load(), 500, 500);
             Stage stage = new Stage();
