@@ -1,4 +1,4 @@
-package cz.osu.swinz.home;
+package cz.osu.swinz.home.sensors;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

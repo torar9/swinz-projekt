@@ -108,7 +108,6 @@ public class RoomOverviewController implements Initializable
                 this.roomNameLabel.setText(room.getName());
 
                 boolean state = room.isForceHeater();
-                System.out.println("state: " + state);
 
                 if(state)
                 {
@@ -159,6 +158,7 @@ public class RoomOverviewController implements Initializable
         }
         catch(Exception e)
         {
+            e.printStackTrace();
         }
     }
 
