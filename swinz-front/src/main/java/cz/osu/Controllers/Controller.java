@@ -151,6 +151,22 @@ public class Controller implements Initializable
     @FXML
     private void handleStatButtonClick()
     {
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL url = new File("src/main/java/cz/osu/fxml/statisticsView.fxml").toURI().toURL();
+            fxmlLoader.setLocation(url);
+
+            Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+            Stage stage = new Stage();
+            stage.setTitle("Statistiky");
+            stage.setScene(scene);
+            stage.show();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @FXML

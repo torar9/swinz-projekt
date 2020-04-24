@@ -157,7 +157,7 @@ public class RoomOverviewController implements Initializable
         try
         {
             double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
-            DatabaseConnection.getInstance().setGlobalTemp(temp);
+            DatabaseConnection.getInstance().setRoomTargetTemp(room, temp);
             tempSliderLabel.setText(Double.toString(temp));
         }
         catch(Exception e)

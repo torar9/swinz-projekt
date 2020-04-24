@@ -42,6 +42,9 @@ public class RoomStatsGenerator
                 "where report_date between (now() - INTERVAL 14 day) and now() and room_id = " + room.getId() + " and is_light_on = 1\n" +
                 "group by day(report_date)) as Counts;").getResultList().get(0);
 
+        if(averageLightTwoWeeks == null)
+            averageLightTwoWeeks = new BigDecimal(0);
+
         return averageLightTwoWeeks.doubleValue();
     }
 
@@ -60,6 +63,9 @@ public class RoomStatsGenerator
         ArrayList<Integer> listOfMonths = new ArrayList<>();
 
         List availableMonths = ent.createNativeQuery("select distinct month(report_date) from room_reports;").getResultList();
+
+        if(availableMonths.isEmpty())
+            return null;
 
         for(int i = 0; i < availableMonths.size(); i++)
         {
@@ -82,6 +88,9 @@ public class RoomStatsGenerator
                     "group by day(report_date)) as Counts;").getResultList().get(0);
             averageLight = averageLight.setScale(2, BigDecimal.ROUND_HALF_UP);
 
+            if(averageLight == null)
+                averageLight = new BigDecimal(0);
+
             Double power = (Double) ent.createNativeQuery("select sum(dny)\n" +
                     "from (\n" +
                     "    select avg(power_consumption) as dny\n" +
@@ -89,6 +98,9 @@ public class RoomStatsGenerator
                     "    where month(report_date) = " + month + " and room_id = " + room.getId() + "\n" +
                     "    group by day(report_date)\n" +
                     ") soucet;").getResultList().get(0);
+
+            if(power == null)
+                power = new Double(0);
 
             resultList.add(new RoomMonthStatistics(
                     room.getName(),
