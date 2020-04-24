@@ -4,18 +4,18 @@ import java.util.List;
 
 public class RoomStats
 {
-    private String roomName;
+    private String monthName;
     private List<RoomMonthStatistics> list;
 
-    public RoomStats(String roomName, List<RoomMonthStatistics> list)
+    public RoomStats(String monthName, List<RoomMonthStatistics> list)
     {
-        this.roomName = roomName;
+        this.monthName = monthName;
         this.list = list;
     }
 
-    public String getRoomName()
+    public String getMonthName()
     {
-        return roomName;
+        return monthName;
     }
 
     public List<RoomMonthStatistics> getList()
@@ -27,7 +27,7 @@ public class RoomStats
     public String toString()
     {
         return "RoomStats{" +
-                "roomName='" + roomName + '\'' +
+                "monthName='" + monthName + '\'' +
                 ", list=" + list +
                 '}';
     }

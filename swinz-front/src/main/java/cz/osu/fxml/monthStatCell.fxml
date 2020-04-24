@@ -7,19 +7,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="100.0" minWidth="500.0" prefHeight="100.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.osu.fxml.StatCell">
+<AnchorPane fx:id="viewPane" minHeight="100.0" minWidth="500.0" prefHeight="100.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="171.0" layoutY="-47.0" prefHeight="153.0" prefWidth="417.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="monthLabel" text="Month">
+                  <Label fx:id="monthLabel" prefHeight="44.0" prefWidth="184.0" text="Month">
                      <font>
                         <Font size="37.0" />
                      </font></Label>
-                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="dnů zapnuto&#10;vytápění" />
-                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="průměrná denní&#10;doba svícení" />
-                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" text="spotřeba&#10;energie" />
+                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" text="dnů zapnuto&#10;vytápění" />
+                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" text="průměrná denní&#10;doba svícení" />
+                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" text="spotřeba&#10;energie" />
                </children>
             </HBox>
             <ListView fx:id="monthStatList" prefHeight="200.0" prefWidth="200.0" />

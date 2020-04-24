@@ -2,29 +2,22 @@ package cz.osu.swinz.home;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
 
 public class RoomMonthStatistics
 {
     private String roomName;
-    private String month;
     private BigInteger averageDayLight;
     private BigDecimal daysHeaterOn;
     private BigDecimal powerConsumption;
 
-    public RoomMonthStatistics(String roomName, String month, BigInteger averageDayLight, BigDecimal daysHeaterOn, BigDecimal powerConsumption)
+    public RoomMonthStatistics(String roomName, BigInteger averageDayLight, BigDecimal daysHeaterOn, BigDecimal powerConsumption)
     {
         this.roomName = roomName;
-        this.month = month;
         this.averageDayLight = averageDayLight;
         this.daysHeaterOn = daysHeaterOn;
         this.powerConsumption = powerConsumption;
     }
 
-    public String getMonth()
-    {
-        return month;
-    }
 
     public BigInteger getAverageDayLight()
     {
@@ -52,7 +45,6 @@ public class RoomMonthStatistics
     {
         return "RoomMonthStatistics{" +
                 "roomName='" + roomName + '\'' +
-                ", Month='" + month + '\'' +
                 ", averageDayLight=" + averageDayLight +
                 ", daysHeaterOn=" + daysHeaterOn +
                 ", powerConsumption=" + powerConsumption +

@@ -54,13 +54,13 @@ public class Controller implements Initializable
 
     public Controller()
     {
+        db = DatabaseConnection.getInstance();
         roomObservableList = FXCollections.observableArrayList();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        db = DatabaseConnection.getInstance();
         mainList.setItems(roomObservableList);
         mainList.setCellFactory(studentListView -> new RoomListViewCell());
 
