@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.osu.Controllers.Controller">
+<GridPane minHeight="550.0" minWidth="550.0" prefHeight="550.0" prefWidth="550.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.osu.Controllers.Controller">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -20,11 +20,11 @@
    <children>
       <HBox prefHeight="123.0" prefWidth="500.0">
          <children>
-            <Button fx:id="roomButton" mnemonicParsing="false" onMouseClicked="#handleRoomButtonClick" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: lightgrey;" text="Místnosti">
+            <Button fx:id="roomButton" mnemonicParsing="false" onMouseClicked="#handleRoomButtonClick" prefHeight="100.0" prefWidth="275.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: lightgrey;" text="Místnosti">
                <font>
                   <Font size="21.0" />
                </font></Button>
-            <Button fx:id="statButton" mnemonicParsing="false" onMouseClicked="#handleStatButtonClick" prefHeight="100.0" prefWidth="250.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: lightgrey;" text="Statistiky">
+            <Button fx:id="statButton" mnemonicParsing="false" onMouseClicked="#handleStatButtonClick" prefHeight="87.0" prefWidth="275.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: lightgrey;" text="Statistiky">
                <font>
                   <Font size="21.0" />
                </font></Button>

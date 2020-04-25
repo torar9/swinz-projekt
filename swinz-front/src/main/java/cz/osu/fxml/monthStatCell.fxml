@@ -13,13 +13,13 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="monthLabel" prefHeight="44.0" prefWidth="184.0" text="Month">
+                  <Label fx:id="monthLabel" prefHeight="44.0" prefWidth="185.0" text="Month">
                      <font>
                         <Font size="37.0" />
                      </font></Label>
-                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" text="dnů zapnuto&#10;vytápění" />
-                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" text="průměrná denní&#10;doba svícení" />
-                  <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" text="spotřeba&#10;energie" />
+                  <TextArea editable="false" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: white;" text="dnů zapnuto&#10;vytápění" />
+                  <TextArea editable="false" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: white;" text="průměrná denní&#10;doba svícení" />
+                  <TextArea editable="false" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: white;" text="spotřeba&#10;energie" />
                </children>
             </HBox>
             <ListView fx:id="monthStatList" prefHeight="200.0" prefWidth="200.0" />

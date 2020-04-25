@@ -7,27 +7,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="viewPaneMonth" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="viewPaneMonth" minHeight="31.0" minWidth="500.0" prefHeight="31.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox layoutX="171.0" layoutY="-47.0" prefHeight="153.0" prefWidth="417.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox prefHeight="59.0" prefWidth="233.0">
                <children>
-                  <Label fx:id="roomLabel" text="room">
+                  <Label fx:id="roomLabel" minWidth="185.0" text="room">
                      <font>
                         <Font size="25.0" />
                      </font></Label>
-                  <Label fx:id="avgHeaterLabel" text="12">
+                  <Label fx:id="avgHeaterLabel" alignment="CENTER" minWidth="100.0" text="12">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <Label fx:id="avgLightLabel" text="42.5 min">
+                  <Label fx:id="avgLightLabel" alignment="CENTER" minWidth="100.0" text="42.5 min">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <Label fx:id="consumptionLabel" text="62 W">
+                  <Label fx:id="consumptionLabel" alignment="CENTER" contentDisplay="CENTER" minWidth="100.0" text="62 W">
                      <font>
                         <Font size="21.0" />
                      </font>
