@@ -15,11 +15,12 @@ import javafx.scene.layout.AnchorPane;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MonthStatCell extends ListCell<RoomStats> implements Initializable
 {
-    public class RoomMonthStatCell extends ListCell<RoomMonthStatistics>
+    public class RoomMonthStatCell extends ListCell<RoomMonthStatistics> implements Initializable
     {
         @FXML
         private Label roomLabel;
@@ -33,6 +34,11 @@ public class MonthStatCell extends ListCell<RoomStats> implements Initializable
         private AnchorPane viewPaneMonth;
 
         private FXMLLoader mLLoaderSub;
+
+        @Override
+        public void initialize(URL location, ResourceBundle resources)
+        {
+        }
 
         @Override
         protected void updateItem(RoomMonthStatistics stat, boolean empty)
@@ -63,10 +69,10 @@ public class MonthStatCell extends ListCell<RoomStats> implements Initializable
                     }
                 }
 
-                roomLabel.setText(stat.getRoomName());
-                avgHeaterLabel.setText(stat.getDaysHeaterOn().toString());
-                avgLightLabel.setText(stat.getAverageDayLight().toString());
-                consumptionLabel.setText(stat.getPowerConsumption().toString());
+                this.roomLabel.setText(stat.getRoomName());
+                this.avgHeaterLabel.setText(stat.getDaysHeaterOn().toString());
+                this.avgLightLabel.setText(stat.getAverageDayLight().toString());
+                this.consumptionLabel.setText(stat.getPowerConsumption().toString());
 
                 this.setText(null);
                 this.setGraphic(viewPaneMonth);
@@ -127,8 +133,20 @@ public class MonthStatCell extends ListCell<RoomStats> implements Initializable
 
             monthLabel.setText(stats.getMonthName());
 
+            roomMonthlyStatsList.clear();
+            List<RoomMonthStatistics> list = stats.getList();
+            for(RoomMonthStatistics stat : list)
+            {
+                this.roomMonthlyStatsList.add(stat);
+            }
+
             this.setText(null);
             this.setGraphic(viewPane);
         }
+    }
+
+    public ObservableList<RoomMonthStatistics> getRoomMonthlyStatsList()
+    {
+        return roomMonthlyStatsList;
     }
 }
