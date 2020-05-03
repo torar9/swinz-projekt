@@ -1,5 +1,6 @@
 package cz.osu.Controllers;
 
+import cz.osu.Main;
 import cz.osu.RoomOverviewCell;
 import cz.osu.DatabaseConnection;
 import cz.osu.data.GroupReport;
@@ -11,14 +12,19 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -191,5 +197,24 @@ public class RoomOverviewController implements Initializable
     @FXML
     private void handleHomeButtonClick()
     {
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL url = new File("src/main/java/cz/osu/fxml/sample.fxml").toURI().toURL();
+            fxmlLoader.setLocation(url);
+
+            Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+            Stage stage = new Stage();
+            stage.setTitle("Swinz");
+            stage.setScene(scene);
+            stage.show();
+
+            Main.stage.close();
+            Main.stage = stage;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

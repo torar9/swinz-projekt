@@ -1,6 +1,7 @@
 package cz.osu.Controllers;
 
 
+import cz.osu.Main;
 import cz.osu.RoomListViewCell;
 import cz.osu.DatabaseConnection;
 import cz.osu.data.GroupReport;
@@ -141,6 +142,9 @@ public class Controller implements Initializable
             stage.setTitle("Přehled místností");
             stage.setScene(scene);
             stage.show();
+
+            Main.stage.close();
+            Main.stage = stage;
         }
         catch (IOException e)
         {
@@ -162,6 +166,9 @@ public class Controller implements Initializable
             stage.setTitle("Statistiky");
             stage.setScene(scene);
             stage.show();
+
+            Main.stage.close();
+            Main.stage = stage;
         }
         catch (IOException e)
         {
