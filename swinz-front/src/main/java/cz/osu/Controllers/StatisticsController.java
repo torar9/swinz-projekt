@@ -2,8 +2,6 @@ package cz.osu.Controllers;
 
 import cz.osu.DatabaseConnection;
 import cz.osu.MonthStatCell;
-import cz.osu.RoomListViewCell;
-import cz.osu.data.Room;
 import cz.osu.data.RoomStats;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

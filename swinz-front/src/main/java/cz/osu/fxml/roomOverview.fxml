@@ -134,7 +134,7 @@
           <RowConstraints maxHeight="99.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="roomListView" onMouseClicked="#handleOnItemClick" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white;" />
+            <ListView fx:id="roomListView" onMouseClicked="#handleOnItemClick" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: white; -fx-background-color: white;" />
             <ImageView fitHeight="32.0" fitWidth="32.0" onMouseClicked="#handleNewButtonClick" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <image>
                   <Image url="@../../../../resources/images/new_button.png" />

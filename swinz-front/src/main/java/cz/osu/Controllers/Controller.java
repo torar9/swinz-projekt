@@ -157,7 +157,7 @@ public class Controller implements Initializable
             URL url = new File("src/main/java/cz/osu/fxml/statisticsView.fxml").toURI().toURL();
             fxmlLoader.setLocation(url);
 
-            Scene scene = new Scene(fxmlLoader.load(), 550, 550);
+            Scene scene = new Scene(fxmlLoader.load(), 600, 600);
             Stage stage = new Stage();
             stage.setTitle("Statistiky");
             stage.setScene(scene);

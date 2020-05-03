@@ -103,17 +103,14 @@ public class SensorGroupController
     }
 
     @PostMapping(path="/groups/globalTemp")
-    public @ResponseBody boolean setGlobalTemp(@RequestParam double temp)
+    public @ResponseBody void setGlobalTemp(@RequestParam double temp)
     {
         for(Room e : roomRepo.findAll())
         {
             e.setTargetTemperature(temp);
             roomRepo.save(e);
             houseRepo.save(e.getHouse());
-            return true;
         }
-
-        return false;
     }
 
     @GetMapping(path="/groups/globalTemp")

@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
@@ -83,6 +84,12 @@ public class MonthStatCell extends ListCell<RoomStats> implements Initializable
     @FXML
     private Label monthLabel;
     @FXML
+    private TextArea consmpLabel;
+    @FXML
+    private TextArea lightLabel;
+    @FXML
+    private TextArea heaterLabel;
+    @FXML
     private ListView monthStatList;
     @FXML
     private AnchorPane viewPane;
@@ -98,6 +105,9 @@ public class MonthStatCell extends ListCell<RoomStats> implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        consmpLabel.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
+        heaterLabel.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
+        lightLabel.setStyle("-fx-focus-color: transparent; -fx-text-box-border: transparent;");
         monthStatList.setItems(roomMonthlyStatsList);
         monthStatList.setCellFactory(studentListView -> new RoomMonthStatCell());
     }
