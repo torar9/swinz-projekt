@@ -46,4 +46,9 @@ public class StatisticsController implements Initializable
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleHomeButtonClick()
+    {
+    }
 }

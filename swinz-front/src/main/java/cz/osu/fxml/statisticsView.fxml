@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -15,6 +17,14 @@
                </font>
             </Label>
             <ListView fx:id="mainStatList" style="-fx-border-color: white;" />
+            <ImageView fitHeight="33.0" fitWidth="40.0" onMouseClicked="#handleHomeButtonClick" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../resources/images/house_button.png" />
+               </image>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </ImageView>
          </children>
       </VBox>
    </children>
