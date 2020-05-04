@@ -82,7 +82,7 @@ public class RoomStatsGenerator
                         "from room_reports\n" +
                         "where month(report_date) = " + month.intValue() + " and is_heater_on = 1 and room_id = " + room.getId() + ";").getResultList().get(0);
                 if(heaterMonth == null)
-                    heaterMonth = new BigInteger("1");
+                    heaterMonth = new BigInteger("0");
 
                 BigDecimal averageLight = (BigDecimal) ent.createNativeQuery("select avg(Count)\n" +
                         "from(select count(*) as Count\n" +
@@ -92,9 +92,6 @@ public class RoomStatsGenerator
                 if(averageLight == null)
                     averageLight = new BigDecimal(0);
                 averageLight = averageLight.setScale(2, BigDecimal.ROUND_HALF_UP);
-
-                if(averageLight == null)
-                    averageLight = new BigDecimal(0);
 
                 Double power = (Double) ent.createNativeQuery("select sum(dny)\n" +
                         "from (\n" +
@@ -109,8 +106,8 @@ public class RoomStatsGenerator
 
                 resultList.add(new RoomMonthStatistics(
                         room.getName(),
-                        heaterMonth,
                         averageLight,
+                        heaterMonth,
                         new BigDecimal(power).setScale(2, BigDecimal.ROUND_HALF_UP)
                 ));
             }

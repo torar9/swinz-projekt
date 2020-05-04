@@ -6,11 +6,11 @@ import java.math.BigInteger;
 public class RoomMonthStatistics
 {
     private String roomName;
-    private BigInteger averageDayLight;
-    private BigDecimal daysHeaterOn;
+    private BigDecimal averageDayLight;
+    private BigInteger daysHeaterOn;
     private BigDecimal powerConsumption;
 
-    public RoomMonthStatistics(String roomName, BigInteger averageDayLight, BigDecimal daysHeaterOn, BigDecimal powerConsumption)
+    public RoomMonthStatistics(String roomName, BigDecimal averageDayLight, BigInteger daysHeaterOn, BigDecimal powerConsumption)
     {
         this.roomName = roomName;
         this.averageDayLight = averageDayLight;
@@ -19,12 +19,12 @@ public class RoomMonthStatistics
     }
 
 
-    public BigInteger getAverageDayLight()
+    public BigDecimal getAverageDayLight()
     {
         return averageDayLight;
     }
 
-    public BigDecimal getDaysHeaterOn()
+    public BigInteger getDaysHeaterOn()
     {
         return daysHeaterOn;
     }

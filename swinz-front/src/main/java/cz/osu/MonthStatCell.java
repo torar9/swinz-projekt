@@ -72,8 +72,8 @@ public class MonthStatCell extends ListCell<RoomStats> implements Initializable
 
                 this.roomLabel.setText(stat.getRoomName());
                 this.avgHeaterLabel.setText(stat.getDaysHeaterOn().toString());
-                this.avgLightLabel.setText(stat.getAverageDayLight().toString());
-                this.consumptionLabel.setText(stat.getPowerConsumption().toString());
+                this.avgLightLabel.setText(stat.getAverageDayLight().toString() + " min");
+                this.consumptionLabel.setText(stat.getPowerConsumption().toString() + " W");
 
                 this.setText(null);
                 this.setGraphic(viewPaneMonth);
