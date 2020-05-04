@@ -46,6 +46,8 @@ public class RoomStatsGenerator
         if(averageLightTwoWeeks == null)
             averageLightTwoWeeks = new BigDecimal(0);
 
+        averageLightTwoWeeks = averageLightTwoWeeks.setScale(2, BigDecimal.ROUND_HALF_UP);
+
         return averageLightTwoWeeks.doubleValue();
     }
 
