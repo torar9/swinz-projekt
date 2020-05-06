@@ -1,4 +1,4 @@
-package cz.osu.swinz;
+package cz.osu.swinz.Controllers;
 
 import cz.osu.swinz.database.HouseRepository;
 import cz.osu.swinz.database.Room;
@@ -9,6 +9,7 @@ import cz.osu.swinz.home.RoomStatsGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,10 +22,6 @@ public class StatisticsController
     EntityManager ent;
     @Autowired
     private RoomRepository roomRepo;
-    @Autowired
-    private RoomReportRepository reportRepo;
-    @Autowired
-    private HouseRepository houseRepo;
 
     @GetMapping(path="/groups/stats")
     public @ResponseBody Iterable<RoomStats> getRoomStats()

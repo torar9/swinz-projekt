@@ -315,7 +315,6 @@ public class DatabaseConnection
 
         Gson gson = new Gson();
         ArrayList<RoomStats> result = gson.fromJson(data, new TypeToken<ArrayList<RoomStats>>(){}.getType());
-        System.out.println(result);
 
         return result;
     }

@@ -1,4 +1,4 @@
-package cz.osu.swinz;
+package cz.osu.swinz.Controllers;
 
 import cz.osu.swinz.database.*;
 import cz.osu.swinz.home.sensors.LightSensor;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

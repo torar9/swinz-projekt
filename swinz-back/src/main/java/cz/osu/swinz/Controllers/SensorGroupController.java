@@ -1,4 +1,4 @@
-package cz.osu.swinz;
+package cz.osu.swinz.Controllers;
 
 import cz.osu.swinz.database.*;
 import cz.osu.swinz.home.*;
@@ -7,7 +7,6 @@ import cz.osu.swinz.home.sensors.PowerConsumptionSensor;
 import cz.osu.swinz.home.sensors.TemperatureSensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
