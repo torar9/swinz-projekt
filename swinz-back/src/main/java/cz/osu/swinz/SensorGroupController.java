@@ -43,16 +43,6 @@ public class SensorGroupController
     @GetMapping(path="/groups/stats")
     public @ResponseBody Iterable<RoomStats> getRoomStats()
     {
-        /*
-        List<RoomStats> list = new ArrayList<>();
-
-        for (Room room : roomRepo.findAll())
-        {
-            RoomStatsGenerator gen = new RoomStatsGenerator(ent);
-            List<RoomMonthStatistics> months = gen.getRoomStats(room);
-
-            list.add(new RoomStats(room.getName(), months));
-        }*/
         RoomStatsGenerator gen = new RoomStatsGenerator(ent);
         return gen.getMonthStats(roomRepo.findAll());
     }
