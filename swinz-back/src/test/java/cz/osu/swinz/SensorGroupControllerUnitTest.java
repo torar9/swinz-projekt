@@ -2,9 +2,12 @@ package cz.osu.swinz;
 
 import cz.osu.swinz.Controllers.SensorGroupController;
 import cz.osu.swinz.database.Room;
+import cz.osu.swinz.database.RoomRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -24,6 +27,10 @@ public class SensorGroupControllerUnitTest
 
     @Resource
     SensorGroupController sens;
+
+    @Mock
+    @Autowired
+    private RoomRepository roomRepo;
 
     @BeforeEach
     private void prepare()
@@ -90,23 +97,18 @@ public class SensorGroupControllerUnitTest
             Random rnd = new Random();
             String name = Integer.toString(rnd.nextInt());
 
-            sens.addNewRoom(name);
-
             int before = 0;
             int after = 0;
             boolean found = false;
 
-            Iterable<Room> iter = sens.getAllRooms();
-            for (Room r : iter)
+            for (Room r : roomRepo.findAll())
             {
                 before++;
             }
 
             sens.addNewRoom(name);
 
-            iter = sens.getAllRooms();
-
-            for (Room r : iter)
+            for (Room r : roomRepo.findAll())
             {
                 if(r.getName().equals(name))
                     found = true;
@@ -124,7 +126,7 @@ public class SensorGroupControllerUnitTest
     }
 
     @Test
-    public void  testGetInvalidRoom()
+    public void  testGetRoomException()
     {
         try
         {

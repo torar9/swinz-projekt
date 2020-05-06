@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b4f23ab-5171-4466-a2f6-2b8cff2fe8a9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/GlobalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/GlobalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/SensorGroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/SensorGroupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/StatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/StatisticsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/SensorGroupControllerUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/SensorGroupControllerUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/osu/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/osu/DatabaseConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +133,7 @@
       <workItem from="1588543198542" duration="2155000" />
       <workItem from="1588597426828" duration="1728000" />
       <workItem from="1588781442653" duration="3872000" />
-      <workItem from="1588795725288" duration="1630000" />
+      <workItem from="1588795725288" duration="2282000" />
     </task>
     <servers />
   </component>
