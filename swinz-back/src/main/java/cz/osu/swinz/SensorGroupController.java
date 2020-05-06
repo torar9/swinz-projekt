@@ -40,14 +40,6 @@ public class SensorGroupController
         return true;
     }
 
-    @GetMapping(path="/test")
-    public @ResponseBody String getStatistics()
-    {
-        //Object averageConsumption = ent.createNativeQuery("Select avg(power_consumption) from room_reports").getResultList().get(0);
-
-        return "F";
-    }
-
     @GetMapping(path="/groups/stats")
     public @ResponseBody Iterable<RoomStats> getRoomStats()
     {
