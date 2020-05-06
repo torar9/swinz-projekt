@@ -147,6 +147,7 @@ public class RoomOverviewController implements Initializable
             this.room = (Room) roomListView.getSelectionModel().getSelectedItem();
             this.tempSliderLabel.setText(Double.toString(room.getTargetTemperature()));
             tempSlider.setValue(room.getTargetTemperature());
+            update();
         }
     }
 
@@ -186,6 +187,7 @@ public class RoomOverviewController implements Initializable
             try
             {
                 db.setRoomHeaterStateForce(room.getId(), !state);
+                update();
             }
             catch (Exception e)
             {

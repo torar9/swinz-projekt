@@ -37,6 +37,19 @@ public class SensorGroupControllerUnitTest
     }
 
     @Test
+    public void  testGetInvalidRoom()
+    {
+        try
+        {
+            Room room = sens.getRoom(-1);
+            fail();
+        }
+        catch(Exception e)
+        {
+        }
+    }
+
+    @Test
     public void testGetRoom()
     {
         try
