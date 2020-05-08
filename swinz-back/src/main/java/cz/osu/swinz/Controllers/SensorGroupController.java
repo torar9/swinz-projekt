@@ -6,11 +6,12 @@ import cz.osu.swinz.home.sensors.LightSensor;
 import cz.osu.swinz.home.sensors.PowerConsumptionSensor;
 import cz.osu.swinz.home.sensors.TemperatureSensor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
-import java.util.Optional;
 
 @EnableScheduling
 @RestController
@@ -29,123 +30,199 @@ public class SensorGroupController
     }
 
     @GetMapping(path="/status")
-    public @ResponseBody boolean isAlive()
+    public @ResponseBody ResponseEntity<Boolean> isAlive()
     {
-        return true;
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 
     @PostMapping(path="/groups/add")
-    public @ResponseBody boolean addNewRoom(@RequestParam String name) throws Exception//curl localhost:8080/groups/add -d name=JmenoMistnosti
+    public @ResponseBody ResponseEntity<Boolean> addNewRoom(@RequestParam String name) throws Exception//curl localhost:8080/groups/add -d name=JmenoMistnosti
     {
         for (House e : houseRepo.findAll())
         {
             Room r = new Room(name, e);
             roomRepo.save(r);
 
-            return true;
+            return ResponseEntity.ok(true);
         }
 
-        throw new Exception("Unable to find house");
+        return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping(path="/groups/{id}/remove")
-    public @ResponseBody boolean removeRoom(@PathVariable int id) throws Exception//curl localhost:8080/groups/remove -d id=1
+    public @ResponseBody ResponseEntity<Boolean> removeRoom(@PathVariable int id) throws Exception//curl localhost:8080/groups/remove -d id=1
     {
-        Room r = roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
-        roomRepo.delete(r);
+        try
+        {
+            Room r = roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
+            roomRepo.delete(r);
 
-        return false;
+            return ResponseEntity.ok(true);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(path="/groups/{id}")
-    public @ResponseBody Room getRoom(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Room> getRoom(@PathVariable int id) throws Exception
     {
-        return roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
+        try
+        {
+            return ResponseEntity.ok(roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room")));
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(path="/groups")
-    public @ResponseBody Iterable<Room> getAllRooms()
+    public @ResponseBody ResponseEntity<Iterable<Room>> getAllRooms()
     {
-        return roomRepo.findAll();
+        return ResponseEntity.ok(roomRepo.findAll());
     }
 
     @GetMapping(path="/groups/{id}/report")
-    public @ResponseBody GroupReport getRoomReport(@PathVariable int id) throws Exception
+    public ResponseEntity<GroupReport> getRoomReport(@PathVariable int id) throws Exception
     {
-        Room r = roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));;
-
-        return new GroupReport(TemperatureSensor.readTemperature(), PowerConsumptionSensor.readPowerConsumption(), LightSensor.isLightOn(), r.getHeaterState());
+        try
+        {
+            Room r = roomRepo.findById(id).orElseThrow(() -> new Exception());
+            return ResponseEntity.ok(new GroupReport(TemperatureSensor.readTemperature(), PowerConsumptionSensor.readPowerConsumption(), LightSensor.isLightOn(), r.getHeaterState()));
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(path="/groups/{id}/temp")
-    public @ResponseBody double getRoomTemperature(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Double> getRoomTemperature(@PathVariable int id) throws Exception
     {
-        roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
+        try
+        {
+            roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
 
-        return TemperatureSensor.readTemperature();
+            return ResponseEntity.ok(TemperatureSensor.readTemperature());
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(path="/groups/{id}/targetTemp")
-    public @ResponseBody double getRoomTargetTemperature(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Double> getRoomTargetTemperature(@PathVariable int id) throws Exception
     {
-        roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
+        try
+        {
+            roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
 
-        return roomRepo.findById(id).get().getTargetTemperature();
+            return ResponseEntity.ok(roomRepo.findById(id).get().getTargetTemperature());
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(path="/groups/{id}/targetTemp")
-    public @ResponseBody boolean setRoomTargetTemperature(@PathVariable int id, @RequestParam double temp) throws Exception
+    public @ResponseBody ResponseEntity<Boolean> setRoomTargetTemperature(@PathVariable int id, @RequestParam double temp) throws Exception
     {
-        Room r = roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
-        r.setTargetTemperature(temp);
-        roomRepo.save(r);
+        try
+        {
+            Room r = roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
+            r.setTargetTemperature(temp);
+            roomRepo.save(r);
 
-        return true;
+            return ResponseEntity.ok(true);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(path="/groups/{id}/heater")
-    public @ResponseBody boolean getRoomHeater(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Boolean> getRoomHeater(@PathVariable int id) throws Exception
     {
-        return roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room")).getHeaterState();
+        try
+        {
+            return ResponseEntity.ok(roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room")).getHeaterState());
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(path="/groups/{id}/heater")
-    public @ResponseBody boolean setRoomHeater(@PathVariable int id, @RequestParam boolean state) throws Exception
+    public @ResponseBody ResponseEntity<Boolean> setRoomHeater(@PathVariable int id, @RequestParam boolean state) throws Exception
     {
-        Room r = roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
-        r.setHeaterState(state);
-        roomRepo.save(r);
+        try
+        {
+            Room r = roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
+            r.setHeaterState(state);
+            roomRepo.save(r);
 
-        return true;
+            return ResponseEntity.ok(true);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(path="/groups/{id}/heaterForce")
-    public @ResponseBody boolean setRoomHeaterForced(@PathVariable int id, @RequestParam boolean state) throws Exception
+    public @ResponseBody ResponseEntity<Boolean> setRoomHeaterForced(@PathVariable int id, @RequestParam boolean state) throws Exception
     {
-        Room r = roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
-        r.setForceHeater(state);
-        roomRepo.save(r);
+        try
+        {
+            Room r = roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
+            r.setForceHeater(state);
+            roomRepo.save(r);
 
-        return true;
+            return ResponseEntity.ok(true);
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(path="/groups/{id}/heaterForce")
-    public @ResponseBody boolean getRoomHeaterForce(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Boolean> getRoomHeaterForce(@PathVariable int id) throws Exception
     {
-        return roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room")).isForceHeater();
+        try
+        {
+            return ResponseEntity.ok(roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room")).isForceHeater());
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(path="/groups/{id}/power")
-    public @ResponseBody double getRoomPowerConsumption(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Double> getRoomPowerConsumption(@PathVariable int id) throws Exception
     {
-        roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room")).isForceHeater();
+        try
+        {
+            roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room")).isForceHeater();
 
-        return PowerConsumptionSensor.readPowerConsumption();
+            return ResponseEntity.ok(PowerConsumptionSensor.readPowerConsumption());
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @ExceptionHandler({Exception.class})
-    public void handleException()
+    public ResponseEntity<Void> handleException()
     {
-        System.out.println("Exception!");
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

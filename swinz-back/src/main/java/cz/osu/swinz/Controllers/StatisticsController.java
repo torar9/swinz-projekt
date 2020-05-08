@@ -5,6 +5,8 @@ import cz.osu.swinz.database.RoomRepository;
 import cz.osu.swinz.home.RoomStats;
 import cz.osu.swinz.home.RoomStatsGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,29 +30,29 @@ public class StatisticsController
     }
 
     @GetMapping(path="/groups/{id}/stats/lightWeeks")
-    public @ResponseBody double getMonthStats(@PathVariable int id)
+    public @ResponseBody ResponseEntity<Double> getMonthStats(@PathVariable int id)
     {
         if(roomRepo.findById(id).isPresent())
         {
             Room room = roomRepo.findById(id).get();
             RoomStatsGenerator gen = new RoomStatsGenerator(ent);
 
-            return gen.getAverageLightTwoWeeks(room);
+            return ResponseEntity.ok(gen.getAverageLightTwoWeeks(room));
         }
-        else return -1;
+        else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(path="/groups/stats/heater")
-    public @ResponseBody int getHeaterInYear()
+    public @ResponseBody ResponseEntity<Integer> getHeaterInYear()
     {
         RoomStatsGenerator gen = new RoomStatsGenerator(ent);
 
-        return gen.getHeatDaysInYear();
+        return ResponseEntity.ok(gen.getHeatDaysInYear());
     }
 
     @ExceptionHandler({Exception.class})
-    public void handleException()
+    public ResponseEntity<Void> handleException()
     {
-        System.out.println("Exception!");
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

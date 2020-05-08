@@ -5,6 +5,8 @@ import cz.osu.swinz.home.sensors.LightSensor;
 import cz.osu.swinz.home.sensors.PowerConsumptionSensor;
 import cz.osu.swinz.home.sensors.TemperatureSensor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
@@ -21,19 +23,18 @@ public class GlobalController
     private HouseRepository houseRepo;
 
     @GetMapping(path="/groups/globalHeater")
-    public @ResponseBody
-    boolean getGlovalHeaterState() throws Exception
+    public @ResponseBody ResponseEntity<Boolean> getGlovalHeaterState() throws Exception
     {
         for(House h : houseRepo.findAll())
         {
-            return h.isHeaterOn();
+            return ResponseEntity.ok(h.isHeaterOn());
         }
 
-        throw new Exception("Unable to find room");
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping(path="/groups/globalHeater")
-    public @ResponseBody boolean setGlovalHeaterState(@RequestParam boolean state) throws Exception
+    public @ResponseBody ResponseEntity<Boolean> setGlovalHeaterState(@RequestParam boolean state) throws Exception
     {
         for(House h : houseRepo.findAll())
         {
@@ -41,23 +42,25 @@ public class GlobalController
             houseRepo.save(h);
             setHeaters(state);
 
-            return true;
+            return ResponseEntity.ok(true);
         }
 
-        throw new Exception("Unable to find room");
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    private void setHeaters(boolean state)
+    private ResponseEntity<Void> setHeaters(boolean state)
     {
         for (Room r : roomRepo.findAll())
         {
             r.setHeaterState(state);
             roomRepo.save(r);
         }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(path="/groups/globalTemp")
-    public @ResponseBody void setGlobalTemp(@RequestParam double temp)
+    public @ResponseBody ResponseEntity<Void> setGlobalTemp(@RequestParam double temp)
     {
         for(House h : houseRepo.findAll())
         {
@@ -70,33 +73,31 @@ public class GlobalController
                 houseRepo.save(e.getHouse());
             }
         }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(path="/groups/globalTemp")
-    public @ResponseBody double getGlobalTemp() throws Exception
+    public @ResponseBody ResponseEntity<Double> getGlobalTemp() throws Exception
     {
         for(House e : houseRepo.findAll())
         {
-            return e.getTargetTemperature();
+            return ResponseEntity.ok(e.getTargetTemperature());
         }
 
-        throw new Exception("Unable to find house");
-    }
-
-    @ExceptionHandler({Exception.class})
-    public void handleException()
-    {
-        System.out.println("Exception!");
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @Scheduled(fixedDelay=60000)//Automaticke ukladani databaze po x milisekundách
-    private void saveReports()
+    private ResponseEntity<Void> saveReports()
     {
         for(Room e : roomRepo.findAll())
         {
             RoomReport rep = new RoomReport(TemperatureSensor.readTemperature(), PowerConsumptionSensor.readPowerConsumption(), e.getHeaterState(), LightSensor.isLightOn(), e);
             reportRepo.save(rep);
         }
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Scheduled(fixedDelay=1000)
@@ -127,5 +128,11 @@ public class GlobalController
                 }
             }
         }
+    }
+
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<Void> handleException()
+    {
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

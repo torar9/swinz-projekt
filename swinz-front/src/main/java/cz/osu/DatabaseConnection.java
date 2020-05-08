@@ -26,6 +26,10 @@ public class DatabaseConnection
     {
         Request req = new Request.Builder().url(baseURL + where).build();
         Response resp = client.newCall(req).execute();
+
+        if(!resp.isSuccessful())
+            throw new IOException();
+
         String result = resp.body().string();
         resp.close();
 
@@ -124,6 +128,9 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        if(!resp.isSuccessful())
+            throw new IOException();
+
         boolean result = resp.isSuccessful();
         resp.close();
 
@@ -143,6 +150,9 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        if(!resp.isSuccessful())
+            throw new IOException();
+
         boolean result = resp.isSuccessful();
         resp.close();
 
@@ -181,6 +191,9 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        if(!resp.isSuccessful())
+            throw new IOException();
+
         boolean result = resp.isSuccessful();
         resp.close();
 
@@ -209,6 +222,9 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        if(!resp.isSuccessful())
+            throw new IOException();
+
         boolean result = resp.isSuccessful();
         resp.close();
 
@@ -237,6 +253,9 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        if(!resp.isSuccessful())
+            throw new IOException();
+
         boolean result = resp.isSuccessful();
         resp.close();
 
@@ -261,6 +280,9 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        if(!resp.isSuccessful())
+            throw new IOException();
+
         boolean result = resp.isSuccessful();
         resp.close();
 
@@ -285,6 +307,9 @@ public class DatabaseConnection
                 .build();
 
         Response resp = client.newCall(req).execute();
+        if(!resp.isSuccessful())
+            throw new IOException();
+
         boolean result = resp.isSuccessful();
         resp.close();
 
