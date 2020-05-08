@@ -3,8 +3,6 @@ package cz.osu.swinz.home;
 import cz.osu.swinz.database.Room;
 
 import javax.persistence.EntityManager;
-import javax.validation.constraints.Null;
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -14,7 +12,6 @@ import java.util.Map;
 
 public class RoomStatsGenerator
 {
-    //@PersistenceContext
     private EntityManager ent;
     private Map<Integer, String> months;
 
