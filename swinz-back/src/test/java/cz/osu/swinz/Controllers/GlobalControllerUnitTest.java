@@ -1,4 +1,4 @@
-package cz.osu.swinz;
+package cz.osu.swinz.Controllers;
 
 import cz.osu.swinz.Controllers.GlobalController;
 import cz.osu.swinz.database.House;

@@ -82,49 +82,65 @@ public class Controller implements Initializable
 
     private void init()
     {
-        try
+        if(db.testConnection())
         {
-            update();
+            roomButton.setDisable(false);
+            statButton.setDisable(false);
+            tempSlider.setDisable(false);
 
-            mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(db.getHeaterStat()) + " dní za poslední 2 týdny");
-
-            boolean globalHeaterState= db.getGlobalHeaterState();
-            if(globalHeaterState)
+            try
             {
-                Image img = new Image("images/status_green.png");
-                tempButton.setImage(img);
-            }
-            else
-            {
-                Image img = new Image("images/status_red.png");
-                tempButton.setImage(img);
-            }
+                update();
 
-            tempLabel.setText(Double.toString(db.getGlobalTemp()));
-            tempSlider.setValue(db.getGlobalTemp());
+                mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(db.getHeaterStat()) + " dní za poslední 2 týdny");
+
+                boolean globalHeaterState= db.getGlobalHeaterState();
+                if(globalHeaterState)
+                {
+                    Image img = new Image("images/status_green.png");
+                    tempButton.setImage(img);
+                }
+                else
+                {
+                    Image img = new Image("images/status_red.png");
+                    tempButton.setImage(img);
+                }
+
+                tempLabel.setText(Double.toString(db.getGlobalTemp()));
+                tempSlider.setValue(db.getGlobalTemp());
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
-        catch(Exception e)
+        else
         {
-            e.printStackTrace();
+            roomButton.setDisable(true);
+            statButton.setDisable(true);
+            tempSlider.setDisable(true);
         }
     }
 
     private void update()
     {
-        roomObservableList.clear();
-        try
+        if(db.testConnection())
         {
-            ArrayList<Room> list = db.getListOfRooms();
-            for (Room r : list)
+            roomObservableList.clear();
+            try
             {
-                GroupReport report = db.getRoomReport(r);
-                r.setReport(report);
-                roomObservableList.add(r);
+                ArrayList<Room> list = db.getListOfRooms();
+                for (Room r : list)
+                {
+                    GroupReport report = db.getRoomReport(r);
+                    r.setReport(report);
+                    roomObservableList.add(r);
+                }
             }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -179,47 +195,56 @@ public class Controller implements Initializable
     @FXML
     private void handleTempButtonClick()
     {
-        try
+        if(db.testConnection())
         {
-            boolean state = db.getGlobalHeaterState();
-            db.setGlobalHeaterState(!state);
+            try
+            {
+                boolean state = db.getGlobalHeaterState();
+                db.setGlobalHeaterState(!state);
 
-            if(state)
-            {
-                Image img = new Image("images/status_red.png");
-                tempButton.setImage(img);
+                if(state)
+                {
+                    Image img = new Image("images/status_red.png");
+                    tempButton.setImage(img);
+                }
+                else
+                {
+                    Image img = new Image("images/status_green.png");
+                    tempButton.setImage(img);
+                }
             }
-            else
+            catch(Exception e)
             {
-                Image img = new Image("images/status_green.png");
-                tempButton.setImage(img);
+                e.printStackTrace();
             }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
         }
     }
 
     @FXML
     private void handleTempSliderDragEvent()
     {
-        double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
-        tempLabel.setText(Double.toString(temp));
+        if(db.testConnection())
+        {
+            double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
+            tempLabel.setText(Double.toString(temp));
+        }
     }
 
     @FXML
     private void handleTempSliderReleaseEvent()
     {
-        try
+        if(db.testConnection())
         {
-            double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
-            DatabaseConnection.getInstance().setGlobalTemp(temp);
-            tempLabel.setText(Double.toString(temp));
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
+            try
+            {
+                double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
+                DatabaseConnection.getInstance().setGlobalTemp(temp);
+                tempLabel.setText(Double.toString(temp));
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 }

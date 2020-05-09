@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.SimpleTimeZone;
 
 public class RoomOverviewController implements Initializable
 {
@@ -92,49 +91,52 @@ public class RoomOverviewController implements Initializable
 
     private void update()
     {
-        roomObservableList.clear();
-        try
+        if(db.testConnection())
         {
-            ArrayList<Room> list = db.getListOfRooms();
-            for (Room r : list)
+            roomObservableList.clear();
+            try
             {
-                GroupReport report = db.getRoomReport(r);
-                r.setReport(report);
-                if(room != null && room.getId() == r.getId())
-                    room = r;
-                roomObservableList.add(r);
-            }
+                ArrayList<Room> list = db.getListOfRooms();
+                for (Room r : list)
+                {
+                    GroupReport report = db.getRoomReport(r);
+                    r.setReport(report);
+                    if(room != null && room.getId() == r.getId())
+                        room = r;
+                    roomObservableList.add(r);
+                }
 
-            if(room != null)
+                if(room != null)
+                {
+                    if(room.getHeaterState())
+                        heaterStatusLabel.setText("Topení je zapnuto");
+                    else heaterStatusLabel.setText("Topení je vypnuto");
+
+                    timeLabel.setText(db.getAvgRoomLightStat(room) + " min");
+
+                    GroupReport gp = room.getReport();
+                    this.consumptionLabel.setText(Double.toString(gp.getPowerConsumption()));
+                    this.tempLabel.setText(Double.toString(gp.getTemp()));
+                    this.roomNameLabel.setText(room.getName());
+
+                    boolean state = room.isForceHeater();
+
+                    if(state)
+                    {
+                        Image img = new Image("images/status_green.png");
+                        this.roomHeaterImg.setImage(img);
+                    }
+                    else
+                    {
+                        Image img = new Image("images/status_red.png");
+                        this.roomHeaterImg.setImage(img);
+                    }
+                }
+            }
+            catch(Exception e)
             {
-                if(room.getHeaterState())
-                    heaterStatusLabel.setText("Topení je zapnuto");
-                else heaterStatusLabel.setText("Topení je vypnuto");
-
-                timeLabel.setText(db.getAvgRoomLightStat(room) + " min");
-
-                GroupReport gp = room.getReport();
-                this.consumptionLabel.setText(Double.toString(gp.getPowerConsumption()));
-                this.tempLabel.setText(Double.toString(gp.getTemp()));
-                this.roomNameLabel.setText(room.getName());
-
-                boolean state = room.isForceHeater();
-
-                if(state)
-                {
-                    Image img = new Image("images/status_green.png");
-                    this.roomHeaterImg.setImage(img);
-                }
-                else
-                {
-                    Image img = new Image("images/status_red.png");
-                    this.roomHeaterImg.setImage(img);
-                }
+                e.printStackTrace();
             }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
         }
     }
 
@@ -187,7 +189,7 @@ public class RoomOverviewController implements Initializable
             boolean state = room.isForceHeater();
             try
             {
-                db.setRoomHeaterStateForce(room.getId(), !state);
+                db.setRoomHeaterStateForced(room.getId(), !state);
                 update();
             }
             catch (Exception e)

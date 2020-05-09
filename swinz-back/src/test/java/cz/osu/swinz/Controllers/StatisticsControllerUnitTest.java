@@ -1,4 +1,4 @@
-package cz.osu.swinz;
+package cz.osu.swinz.Controllers;
 
 import cz.osu.swinz.Controllers.StatisticsController;
 import cz.osu.swinz.database.HouseRepository;

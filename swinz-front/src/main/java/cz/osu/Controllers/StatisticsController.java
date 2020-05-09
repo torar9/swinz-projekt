@@ -35,21 +35,24 @@ public class StatisticsController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        try
+        if(db.testConnection())
         {
-            List<RoomStats> list = db.getListOfMonthStats();
-
-            mainStatList.setItems(roomStatList);
-            mainStatList.setCellFactory(studentListView -> new MonthStatCell());
-
-            for (RoomStats stats : list)
+            try
             {
-                roomStatList.add(stats);
+                List<RoomStats> list = db.getListOfMonthStats();
+
+                mainStatList.setItems(roomStatList);
+                mainStatList.setCellFactory(studentListView -> new MonthStatCell());
+
+                for (RoomStats stats : list)
+                {
+                    roomStatList.add(stats);
+                }
             }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -137,7 +137,7 @@ public class DatabaseConnection
         return result;
     }
 
-    public boolean setRoomHeaterStateForce(int id, boolean state) throws IOException
+    public boolean setRoomHeaterStateForced(int id, boolean state) throws IOException
     {
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -145,7 +145,7 @@ public class DatabaseConnection
                 .build();
 
         Request req = new Request.Builder()
-                .url(baseURL + "groups/" + id + "/heaterForce")
+                .url(baseURL + "groups/" + id + "/heaterForced")
                 .post(body)
                 .build();
 
