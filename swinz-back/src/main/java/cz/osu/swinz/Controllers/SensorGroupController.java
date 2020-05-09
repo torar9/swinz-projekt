@@ -50,7 +50,7 @@ public class SensorGroupController
     }
 
     @PostMapping(path="/groups/{id}/remove")
-    public @ResponseBody ResponseEntity<Boolean> removeRoom(@PathVariable int id) throws Exception//curl localhost:8080/groups/remove -d id=1
+    public @ResponseBody ResponseEntity<Boolean> removeRoom(@PathVariable int id)//curl localhost:8080/groups/remove -d id=1
     {
         try
         {
@@ -66,7 +66,7 @@ public class SensorGroupController
     }
 
     @GetMapping(path="/groups/{id}")
-    public @ResponseBody ResponseEntity<Room> getRoom(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Room> getRoom(@PathVariable int id)
     {
         try
         {
@@ -85,7 +85,7 @@ public class SensorGroupController
     }
 
     @GetMapping(path="/groups/{id}/report")
-    public ResponseEntity<GroupReport> getRoomReport(@PathVariable int id) throws Exception
+    public ResponseEntity<GroupReport> getRoomReport(@PathVariable int id)
     {
         try
         {
@@ -99,7 +99,7 @@ public class SensorGroupController
     }
 
     @GetMapping(path="/groups/{id}/temp")
-    public @ResponseBody ResponseEntity<Double> getRoomTemperature(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Double> getRoomTemperature(@PathVariable int id)
     {
         try
         {
@@ -114,7 +114,7 @@ public class SensorGroupController
     }
 
     @GetMapping(path="/groups/{id}/targetTemp")
-    public @ResponseBody ResponseEntity<Double> getRoomTargetTemperature(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Double> getRoomTargetTemperature(@PathVariable int id)
     {
         try
         {
@@ -129,7 +129,7 @@ public class SensorGroupController
     }
 
     @PostMapping(path="/groups/{id}/targetTemp")
-    public @ResponseBody ResponseEntity<Boolean> setRoomTargetTemperature(@PathVariable int id, @RequestParam double temp) throws Exception
+    public @ResponseBody ResponseEntity<Boolean> setRoomTargetTemperature(@PathVariable int id, @RequestParam double temp)
     {
         try
         {
@@ -146,7 +146,7 @@ public class SensorGroupController
     }
 
     @GetMapping(path="/groups/{id}/heater")
-    public @ResponseBody ResponseEntity<Boolean> getRoomHeater(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Boolean> getRoomHeater(@PathVariable int id)
     {
         try
         {
@@ -157,9 +157,9 @@ public class SensorGroupController
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
+/*
     @PostMapping(path="/groups/{id}/heater")
-    public @ResponseBody ResponseEntity<Boolean> setRoomHeater(@PathVariable int id, @RequestParam boolean state) throws Exception
+    public @ResponseBody ResponseEntity<Boolean> setRoomHeater(@PathVariable int id, @RequestParam boolean state)
     {
         try
         {
@@ -173,10 +173,10 @@ public class SensorGroupController
         {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 
-    @PostMapping(path="/groups/{id}/heaterForce")
-    public @ResponseBody ResponseEntity<Boolean> setRoomHeaterForced(@PathVariable int id, @RequestParam boolean state) throws Exception
+    @PostMapping(path="/groups/{id}/heaterForced")
+    public @ResponseBody ResponseEntity<Boolean> setRoomHeaterForced(@PathVariable int id, @RequestParam boolean state)
     {
         try
         {
@@ -192,8 +192,8 @@ public class SensorGroupController
         }
     }
 
-    @GetMapping(path="/groups/{id}/heaterForce")
-    public @ResponseBody ResponseEntity<Boolean> getRoomHeaterForce(@PathVariable int id) throws Exception
+    @GetMapping(path="/groups/{id}/heaterForced")
+    public @ResponseBody ResponseEntity<Boolean> getRoomHeaterForce(@PathVariable int id)
     {
         try
         {
@@ -206,7 +206,7 @@ public class SensorGroupController
     }
 
     @GetMapping(path="/groups/{id}/power")
-    public @ResponseBody ResponseEntity<Double> getRoomPowerConsumption(@PathVariable int id) throws Exception
+    public @ResponseBody ResponseEntity<Double> getRoomPowerConsumption(@PathVariable int id)
     {
         try
         {

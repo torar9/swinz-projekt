@@ -23,7 +23,7 @@ public class GlobalController
     private HouseRepository houseRepo;
 
     @GetMapping(path="/groups/globalHeater")
-    public @ResponseBody ResponseEntity<Boolean> getGlovalHeaterState() throws Exception
+    public @ResponseBody ResponseEntity<Boolean> getGlovalHeaterState()
     {
         for(House h : houseRepo.findAll())
         {
@@ -34,7 +34,7 @@ public class GlobalController
     }
 
     @PostMapping(path="/groups/globalHeater")
-    public @ResponseBody ResponseEntity<Boolean> setGlovalHeaterState(@RequestParam boolean state) throws Exception
+    public @ResponseBody ResponseEntity<Boolean> setGlovalHeaterState(@RequestParam boolean state)
     {
         for(House h : houseRepo.findAll())
         {
@@ -48,15 +48,13 @@ public class GlobalController
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    private ResponseEntity<Void> setHeaters(boolean state)
+    private void setHeaters(boolean state)
     {
         for (Room r : roomRepo.findAll())
         {
             r.setHeaterState(state);
             roomRepo.save(r);
         }
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(path="/groups/globalTemp")
@@ -78,7 +76,7 @@ public class GlobalController
     }
 
     @GetMapping(path="/groups/globalTemp")
-    public @ResponseBody ResponseEntity<Double> getGlobalTemp() throws Exception
+    public @ResponseBody ResponseEntity<Double> getGlobalTemp()
     {
         for(House e : houseRepo.findAll())
         {
