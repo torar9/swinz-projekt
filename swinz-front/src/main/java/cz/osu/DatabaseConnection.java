@@ -115,28 +115,6 @@ public class DatabaseConnection
         return gson.fromJson(data, Boolean.class);
     }
 
-    public boolean setRoomHeaterState(int id, boolean state) throws IOException
-    {
-        RequestBody body = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("state", Boolean.toString(state))
-                .build();
-
-        Request req = new Request.Builder()
-                .url(baseURL + "groups/" + id + "/heater")
-                .post(body)
-                .build();
-
-        Response resp = client.newCall(req).execute();
-        if(!resp.isSuccessful())
-            throw new IOException();
-
-        boolean result = resp.isSuccessful();
-        resp.close();
-
-        return result;
-    }
-
     public boolean setRoomHeaterStateForced(int id, boolean state) throws IOException
     {
         RequestBody body = new MultipartBody.Builder()

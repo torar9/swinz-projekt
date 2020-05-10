@@ -1,6 +1,5 @@
 package cz.osu.swinz.Controllers;
 
-import cz.osu.swinz.database.HouseRepository;
 import cz.osu.swinz.database.Room;
 import cz.osu.swinz.database.RoomRepository;
 import cz.osu.swinz.home.GroupReport;

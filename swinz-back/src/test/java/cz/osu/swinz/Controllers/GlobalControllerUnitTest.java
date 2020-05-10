@@ -1,6 +1,5 @@
 package cz.osu.swinz.Controllers;
 
-import cz.osu.swinz.Controllers.GlobalController;
 import cz.osu.swinz.database.House;
 import cz.osu.swinz.database.HouseRepository;
 import org.junit.jupiter.api.Test;

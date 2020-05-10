@@ -10,6 +10,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.ScheduledService;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -52,6 +53,7 @@ public class Controller implements Initializable
     private ObservableList<Room> roomObservableList;
     private Timeline timer;
     private DatabaseConnection db;
+    private ScheduledService<Void> service;
 
     public Controller()
     {

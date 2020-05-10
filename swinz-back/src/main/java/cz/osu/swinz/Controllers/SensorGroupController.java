@@ -157,23 +157,6 @@ public class SensorGroupController
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-/*
-    @PostMapping(path="/groups/{id}/heater")
-    public @ResponseBody ResponseEntity<Boolean> setRoomHeater(@PathVariable int id, @RequestParam boolean state)
-    {
-        try
-        {
-            Room r = roomRepo.findById(id).orElseThrow(() -> new Exception("Unable to find room"));
-            r.setHeaterState(state);
-            roomRepo.save(r);
-
-            return ResponseEntity.ok(true);
-        }
-        catch (Exception e)
-        {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }*/
 
     @PostMapping(path="/groups/{id}/heaterForced")
     public @ResponseBody ResponseEntity<Boolean> setRoomHeaterForced(@PathVariable int id, @RequestParam boolean state)
