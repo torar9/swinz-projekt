@@ -53,7 +53,6 @@ public class Controller implements Initializable
     private ObservableList<Room> roomObservableList;
     private Timeline timer;
     private DatabaseConnection db;
-    private ScheduledService<Void> service;
 
     public Controller()
     {

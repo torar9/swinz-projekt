@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b4f23ab-5171-4466-a2f6-2b8cff2fe8a9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../swinz-back/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/SensorGroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/SensorGroupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/GlobalControllerUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/GlobalControllerUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/SensorGroupControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/SensorGroupControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/StatisticsControllerUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/StatisticsControllerUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cz/osu/Controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/osu/Controllers/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/osu/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/osu/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/swinz-front.kotlin_module" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +41,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documents/test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.56402737" />
@@ -153,6 +144,7 @@
       <workItem from="1589035648885" duration="1649000" />
       <workItem from="1589056365014" duration="3970000" />
       <workItem from="1589061683511" duration="8146000" />
+      <workItem from="1589070112114" duration="45000" />
     </task>
     <servers />
   </component>
