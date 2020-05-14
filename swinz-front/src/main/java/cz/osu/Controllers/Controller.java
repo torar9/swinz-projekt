@@ -53,6 +53,7 @@ public class Controller implements Initializable
     private ObservableList<Room> roomObservableList;
     private Timeline timer;
     private DatabaseConnection db;
+    private boolean wasOffline;
 
     public Controller()
     {
@@ -85,13 +86,10 @@ public class Controller implements Initializable
     {
         if(db.testConnection())
         {
-            roomButton.setDisable(false);
-            statButton.setDisable(false);
-            tempSlider.setDisable(false);
-
             try
             {
-                update();
+                if(!wasOffline)
+                    update();
 
                 mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(db.getHeaterStat()) + " dní za poslední 2 týdny");
 
@@ -115,18 +113,20 @@ public class Controller implements Initializable
                 e.printStackTrace();
             }
         }
-        else
-        {
-            roomButton.setDisable(true);
-            statButton.setDisable(true);
-            tempSlider.setDisable(true);
-        }
+        else wasOffline = true;
     }
 
     private void update()
     {
         if(db.testConnection())
         {
+            if(wasOffline)
+                init();
+
+            roomButton.setDisable(false);
+            statButton.setDisable(false);
+            tempSlider.setDisable(false);
+
             roomObservableList.clear();
             try
             {
@@ -142,6 +142,13 @@ public class Controller implements Initializable
             {
                 e.printStackTrace();
             }
+        }
+        else
+        {
+            roomButton.setDisable(true);
+            statButton.setDisable(true);
+            tempSlider.setDisable(true);
+            wasOffline = true;
         }
     }
 
