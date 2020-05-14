@@ -29,12 +29,6 @@ public class SensorGroupController
             houseRepo.save(new House());
     }
 
-    @GetMapping(path="/status")
-    public @ResponseBody ResponseEntity<Boolean> isAlive()
-    {
-        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
-    }
-
     @PostMapping(path="/groups/add")
     public @ResponseBody ResponseEntity<Boolean> addNewRoom(@RequestParam String name) throws Exception//curl localhost:8080/groups/add -d name=JmenoMistnosti
     {
@@ -146,7 +140,7 @@ public class SensorGroupController
     }
 
     @GetMapping(path="/groups/{id}/heater")
-    public @ResponseBody ResponseEntity<Boolean> getRoomHeater(@PathVariable int id)
+    public @ResponseBody ResponseEntity<Boolean> getRoomHeaterState(@PathVariable int id)
     {
         try
         {
@@ -159,7 +153,7 @@ public class SensorGroupController
     }
 
     @PostMapping(path="/groups/{id}/heaterForced")
-    public @ResponseBody ResponseEntity<Boolean> setRoomHeaterForced(@PathVariable int id, @RequestParam boolean state)
+    public @ResponseBody ResponseEntity<Boolean> setRoomHeaterForcedState(@PathVariable int id, @RequestParam boolean state)
     {
         try
         {
@@ -176,7 +170,7 @@ public class SensorGroupController
     }
 
     @GetMapping(path="/groups/{id}/heaterForced")
-    public @ResponseBody ResponseEntity<Boolean> getRoomHeaterForce(@PathVariable int id)
+    public @ResponseBody ResponseEntity<Boolean> getRoomHeaterForcedState(@PathVariable int id)
     {
         try
         {

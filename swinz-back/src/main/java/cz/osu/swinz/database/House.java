@@ -10,7 +10,7 @@ public class House
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private double targetTemperature = 20.0;
-    private boolean isHeaterOn= false;
+    private boolean isHeaterOn = false;
 
     @OneToMany(mappedBy = "house", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Room> rooms;

@@ -10,5 +10,4 @@ public class SwinzApplication
 	{
 		SpringApplication.run(SwinzApplication.class, args);
 	}
-
 }

@@ -86,7 +86,7 @@ class SensorGroupControllerTest
     @Test
     void testInvalidParamGetRoomHeater()
     {
-        ResponseEntity<Boolean> resp = sens.getRoomHeater(-1);
+        ResponseEntity<Boolean> resp = sens.getRoomHeaterState(-1);
 
         if(resp.getStatusCode() == HttpStatus.OK)
             fail();
@@ -104,7 +104,7 @@ class SensorGroupControllerTest
     @Test
     void testInvalidParamSetRoomHeaterForced()
     {
-        ResponseEntity<Boolean> resp = sens.setRoomHeaterForced(-1, true);
+        ResponseEntity<Boolean> resp = sens.setRoomHeaterForcedState(-1, true);
 
         if(resp.getStatusCode() == HttpStatus.OK)
             fail();
@@ -113,7 +113,7 @@ class SensorGroupControllerTest
     @Test
     void testInvalidParamGetRoomHeaterForce()
     {
-        ResponseEntity<Boolean> resp = sens.getRoomHeaterForce(-1);
+        ResponseEntity<Boolean> resp = sens.getRoomHeaterForcedState(-1);
 
         if(resp.getStatusCode() == HttpStatus.OK)
             fail();

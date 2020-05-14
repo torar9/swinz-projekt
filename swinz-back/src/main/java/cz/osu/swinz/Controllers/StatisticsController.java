@@ -18,19 +18,19 @@ import javax.persistence.PersistenceContext;
 public class StatisticsController
 {
     @PersistenceContext
-    EntityManager ent;
+    private EntityManager ent;
     @Autowired
     private RoomRepository roomRepo;
 
     @GetMapping(path="/groups/stats")
-    public @ResponseBody Iterable<RoomStats> getRoomStats()
+    public @ResponseBody ResponseEntity<Iterable<RoomStats>> getRoomStats()
     {
         RoomStatsGenerator gen = new RoomStatsGenerator(ent);
-        return gen.getMonthStats(roomRepo.findAll());
+        return ResponseEntity.ok(gen.getMonthStats(roomRepo.findAll()));
     }
 
     @GetMapping(path="/groups/{id}/stats/lightWeeks")
-    public @ResponseBody ResponseEntity<Double> getMonthStats(@PathVariable int id)
+    public @ResponseBody ResponseEntity<Double> getMonthLightStats(@PathVariable int id)
     {
         if(roomRepo.findById(id).isPresent())
         {

@@ -5,6 +5,7 @@ import cz.osu.swinz.database.Room;
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,13 +42,13 @@ public class RoomStatsGenerator
         BigDecimal averageLightTwoWeeks = (BigDecimal) ent.createNativeQuery("select avg(Count)\n" +
                 "from(select count(*) as Count\n" +
                 "from room_reports\n" +
-                "where report_date between (now() - INTERVAL 14 day) and now() and room_id = " + room.getId() + " and is_light_on = 1\n" +
-                "group by day(report_date)) as Counts;").getResultList().get(0);
+                "where report_date between (now() - INTERVAL 14 day) and now() and room_id = ? and is_light_on = 1\n" +
+                "group by day(report_date)) as Counts;").setParameter(1, room.getId()).getResultList().get(0);
 
         if(averageLightTwoWeeks == null)
             averageLightTwoWeeks = new BigDecimal(0);
 
-        averageLightTwoWeeks = averageLightTwoWeeks.setScale(2, BigDecimal.ROUND_HALF_UP);
+        averageLightTwoWeeks = averageLightTwoWeeks.setScale(2, RoundingMode.HALF_UP);
 
         return averageLightTwoWeeks.doubleValue();
     }
@@ -88,35 +89,36 @@ public class RoomStatsGenerator
 
                 BigInteger heaterMonth = (BigInteger) ent.createNativeQuery("select count(distinct day(report_date))\n" +
                         "from room_reports\n" +
-                        "where month(report_date) = " + month.intValue() + " and is_heater_on = 1 and room_id = " + room.getId() + ";").getResultList().get(0);
+                        "where month(report_date) = ? and is_heater_on = 1 and room_id = ?;").setParameter(1, month.intValue()).setParameter(2, room.getId()).getResultList().get(0);
                 if(heaterMonth == null)
                     heaterMonth = new BigInteger("0");
 
                 BigDecimal averageLight = (BigDecimal) ent.createNativeQuery("select avg(Count)\n" +
                         "from(select count(*) as Count\n" +
                         "from room_reports\n" +
-                        "where month(report_date) = " + month.intValue() + " and room_id = " + room.getId() + " and is_light_on = 1\n" +
-                        "group by day(report_date)) as Counts;").getResultList().get(0);
+                        "where month(report_date) = ? and room_id = ? and is_light_on = 1\n" +
+                        "group by day(report_date)) as Counts;").setParameter(1, month.intValue()).setParameter(2, room.getId()).getResultList().get(0);
                 if(averageLight == null)
                     averageLight = new BigDecimal(0);
-                averageLight = averageLight.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+                averageLight = averageLight.setScale(2, RoundingMode.HALF_UP);
 
                 Double power = (Double) ent.createNativeQuery("select sum(dny)\n" +
                         "from (\n" +
                         "    select avg(power_consumption) as dny\n" +
                         "    from room_reports\n" +
-                        "    where month(report_date) = " + month + " and room_id = " + room.getId() + "\n" +
+                        "    where month(report_date) = ? and room_id = ?\n" +
                         "    group by day(report_date)\n" +
-                        ") soucet;").getResultList().get(0);
+                        ") soucet;").setParameter(1, month).setParameter(2, room.getId()).getResultList().get(0);
 
                 if(power == null)
-                    power = new Double(0);
+                    power = Double.valueOf(0.0);
 
                 resultList.add(new RoomMonthStatistics(
                         room.getName(),
                         averageLight,
                         heaterMonth,
-                        new BigDecimal(power).setScale(2, BigDecimal.ROUND_HALF_UP)
+                        new BigDecimal(power).setScale(2, RoundingMode.HALF_UP)
                 ));
             }
             globalStats.add(new RoomStats(months.get(month), resultList));

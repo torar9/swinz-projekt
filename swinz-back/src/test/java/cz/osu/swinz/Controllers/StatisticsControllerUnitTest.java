@@ -1,11 +1,7 @@
 package cz.osu.swinz.Controllers;
 
-import cz.osu.swinz.database.HouseRepository;
-import cz.osu.swinz.database.RoomRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +23,7 @@ public class StatisticsControllerUnitTest
     @Test
     public void testInvalidParamGetMonthStats()
     {
-        ResponseEntity<Double> resp = stat.getMonthStats(-1);
+        ResponseEntity<Double> resp = stat.getMonthLightStats(-1);
 
         if(resp.getStatusCode() == HttpStatus.OK)
             fail();

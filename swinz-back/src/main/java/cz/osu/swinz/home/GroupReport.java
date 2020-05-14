@@ -15,11 +15,6 @@ public class GroupReport
         this.heaterState = heaterState;
     }
 
-    public void setLightStatus(boolean lightStatus)
-    {
-        this.lightStatus = lightStatus;
-    }
-
     public double getTemp()
     {
         return temp;

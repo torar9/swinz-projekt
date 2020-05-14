@@ -22,6 +22,12 @@ public class GlobalController
     @Autowired
     private HouseRepository houseRepo;
 
+    @GetMapping(path="/status")
+    public @ResponseBody ResponseEntity<Boolean> isAlive()
+    {
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+    }
+
     @GetMapping(path="/groups/globalHeater")
     public @ResponseBody ResponseEntity<Boolean> getGlovalHeaterState()
     {
@@ -87,15 +93,13 @@ public class GlobalController
     }
 
     @Scheduled(fixedDelay=60000)//Automaticke ukladani databaze po x milisekundách
-    private ResponseEntity<Void> saveReports()
+    private void saveReports()
     {
         for(Room e : roomRepo.findAll())
         {
             RoomReport rep = new RoomReport(TemperatureSensor.readTemperature(), PowerConsumptionSensor.readPowerConsumption(), e.getHeaterState(), LightSensor.isLightOn(), e);
             reportRepo.save(rep);
         }
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Scheduled(fixedDelay=1000)
