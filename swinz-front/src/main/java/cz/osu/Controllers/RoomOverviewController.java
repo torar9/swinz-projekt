@@ -21,6 +21,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -183,7 +184,7 @@ public class RoomOverviewController implements Initializable
     {
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setResizable(false);
-        dialog.setTitle("New room");
+        dialog.setTitle("Nová místnost");
 
         dialog.setHeaderText("Vytvoření nové místnosti");
         dialog.setContentText("Název mísnosti");
