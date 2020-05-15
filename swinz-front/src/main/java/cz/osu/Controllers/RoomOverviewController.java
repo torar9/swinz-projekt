@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class RoomOverviewController implements Initializable
@@ -179,6 +181,29 @@ public class RoomOverviewController implements Initializable
     @FXML
     private void handleNewButtonClick()
     {
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setResizable(false);
+        dialog.setTitle("New room");
+
+        dialog.setHeaderText("Vytvoření nové místnosti");
+        dialog.setContentText("Název mísnosti");
+
+        Optional<String> result = dialog.showAndWait();
+        if(result.isPresent())
+        {
+            String name = result.get();
+            if(!name.isEmpty())
+            {
+                try
+                {
+                    db.postNewRoom(name);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @FXML

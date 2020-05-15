@@ -91,15 +91,6 @@ class SensorGroupControllerTest
         if(resp.getStatusCode() == HttpStatus.OK)
             fail();
     }
-/*
-    @Test
-    void testInvalidParamSetRoomHeater()
-    {
-        ResponseEntity<Boolean> resp = sens.setRoomHeater(-1, true);
-
-        if(resp.getStatusCode() == HttpStatus.OK)
-            fail();
-    }*/
 
     @Test
     void testInvalidParamSetRoomHeaterForced()

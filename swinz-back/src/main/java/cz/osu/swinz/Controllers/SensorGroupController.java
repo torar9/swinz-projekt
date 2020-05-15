@@ -32,6 +32,9 @@ public class SensorGroupController
     @PostMapping(path="/groups/add")
     public @ResponseBody ResponseEntity<Boolean> addNewRoom(@RequestParam String name) throws Exception//curl localhost:8080/groups/add -d name=JmenoMistnosti
     {
+        if(name.isEmpty())
+            return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+
         for (House e : houseRepo.findAll())
         {
             Room r = new Room(name, e);
