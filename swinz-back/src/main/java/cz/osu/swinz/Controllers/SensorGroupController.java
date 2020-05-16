@@ -30,7 +30,7 @@ public class SensorGroupController
     }
 
     @PostMapping(path="/groups/add")
-    public @ResponseBody ResponseEntity<Boolean> addNewRoom(@RequestParam String name) throws Exception//curl localhost:8080/groups/add -d name=JmenoMistnosti
+    public @ResponseBody ResponseEntity<Boolean> addNewRoom(@RequestParam String name) //curl localhost:8080/groups/add -d name=JmenoMistnosti
     {
         if(name.isEmpty())
             return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);

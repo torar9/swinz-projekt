@@ -30,6 +30,28 @@ class SensorGroupControllerTest
     private RoomRepository roomRepo;
 
     @Test
+    void testInvalidParamNewRoom()
+    {
+        ResponseEntity<Boolean> resp = sens.addNewRoom("");
+
+        if(resp.getStatusCode() == HttpStatus.OK)
+            fail();
+    }
+
+    @Test
+    void testNewRoom()
+    {
+        long count = roomRepo.count();
+        ResponseEntity<Boolean> resp = sens.addNewRoom("test");
+
+        if(resp.getStatusCode() != HttpStatus.OK)
+            fail();
+
+        if(roomRepo.count() <= count)
+            fail();
+    }
+
+    @Test
     void testInvalidParamRemoveRoom()
     {
         ResponseEntity<Boolean> resp = sens.removeRoom(-1);
