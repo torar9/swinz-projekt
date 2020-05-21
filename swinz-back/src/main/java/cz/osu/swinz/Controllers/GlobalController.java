@@ -117,8 +117,7 @@ public class GlobalController
                     {
                         e.setHeaterState(true);
                     }
-
-                    if(tmp < e.getTargetTemperature())
+                    else if(tmp < e.getTargetTemperature())
                     {
                         e.setHeaterState(true);
                     }
