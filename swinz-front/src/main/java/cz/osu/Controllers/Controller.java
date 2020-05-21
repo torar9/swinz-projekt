@@ -3,14 +3,13 @@ package cz.osu.Controllers;
 
 import cz.osu.Main;
 import cz.osu.RoomListViewCell;
-import cz.osu.DatabaseConnection;
+import cz.osu.data.DatabaseConnection;
 import cz.osu.data.GroupReport;
 import cz.osu.data.Room;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.ScheduledService;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,7 +26,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -157,9 +155,7 @@ public class Controller implements Initializable
     {
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = new File("src/main/java/cz/osu/fxml/roomOverview.fxml").toURI().toURL();
-            fxmlLoader.setLocation(url);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/roomOverview.fxml"));
 
             Scene scene = new Scene(fxmlLoader.load(), 550, 550);
             Stage stage = new Stage();
@@ -181,9 +177,7 @@ public class Controller implements Initializable
     {
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = new File("src/main/java/cz/osu/fxml/statisticsView.fxml").toURI().toURL();
-            fxmlLoader.setLocation(url);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/statisticsView.fxml"));
 
             Scene scene = new Scene(fxmlLoader.load(), 600, 600);
             Stage stage = new Stage();

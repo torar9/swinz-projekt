@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="viewPane" minHeight="100.0" minWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="171.0" layoutY="-47.0" prefHeight="153.0" prefWidth="417.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="monthLabel" prefHeight="44.0" prefWidth="185.0" text="Month">
+                     <font>
+                        <Font size="37.0" />
+                     </font></Label>
+                  <TextArea fx:id="heaterLabel" editable="false" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: white; -fx-border-color: white;" text="dnů zapnuto&#10;vytápění" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></TextArea>
+                  <TextArea fx:id="lightLabel" editable="false" prefHeight="52.0" prefWidth="113.0" style="-fx-border-color: white; -fx-border-color: white;" text="průměrná denní&#10;doba svícení" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></TextArea>
+                  <TextArea fx:id="consmpLabel" editable="false" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: white; -fx-border-color: white;" text="spotřeba&#10;energie" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></TextArea>
+               </children>
+            </HBox>
+            <ListView fx:id="monthStatList" prefWidth="500.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

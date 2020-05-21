@@ -2,7 +2,7 @@ package cz.osu.Controllers;
 
 import cz.osu.Main;
 import cz.osu.RoomOverviewCell;
-import cz.osu.DatabaseConnection;
+import cz.osu.data.DatabaseConnection;
 import cz.osu.data.GroupReport;
 import cz.osu.data.Room;
 import javafx.animation.KeyFrame;
@@ -21,11 +21,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -111,6 +109,8 @@ public class RoomOverviewController implements Initializable
 
                 if(room != null)
                 {
+                    roomListView.getSelectionModel().select(room);
+
                     if(room.getHeaterState())
                         heaterStatusLabel.setText("Topení je zapnuto");
                     else heaterStatusLabel.setText("Topení je vypnuto");
@@ -146,6 +146,7 @@ public class RoomOverviewController implements Initializable
     @FXML
     private void handleOnItemClick()
     {
+        timer.pause();
         Object o = roomListView.getSelectionModel().getSelectedItem();
 
         if(o != null)
@@ -155,6 +156,7 @@ public class RoomOverviewController implements Initializable
             tempSlider.setValue(room.getTargetTemperature());
             update();
         }
+        timer.play();
     }
 
     @FXML
@@ -230,9 +232,7 @@ public class RoomOverviewController implements Initializable
     {
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = new File("src/main/java/cz/osu/fxml/sample.fxml").toURI().toURL();
-            fxmlLoader.setLocation(url);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
 
             Scene scene = new Scene(fxmlLoader.load(), 500, 500);
             Stage stage = new Stage();
@@ -249,3 +249,17 @@ public class RoomOverviewController implements Initializable
         }
     }
 }
+/*
+roomObservableList.clear();
+            try
+            {
+                ArrayList<Room> list = db.getListOfRooms();
+                for (Room r : list)
+                {
+                    GroupReport report = db.getRoomReport(r);
+                    r.setReport(report);
+                    if(room != null && room.getId() == r.getId())
+                        room = r;
+                    roomObservableList.add(r);
+                }
+ */

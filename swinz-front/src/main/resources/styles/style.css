@@ -1,0 +1,40 @@
+.list-view .list-cell
+{
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+    -fx-border-width: 0 1 1 0;
+    -fx-text-fill: black;
+}
+
+.list-view .list-cell:empty
+{
+    -fx-background-color: white;
+    -fx-border-width: 0;
+}
+
+.list-view .list-cell:selected
+{
+    -fx-text-fill: black;
+    -fx-background-color: dodgerblue;
+}
+
+.text-area
+{
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+.text-area
+{
+    -fx-text-fill: gray;
+}
+
+.text-area .content
+{
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+.text-area *.text
+{
+    -fx-text-alignment: center;
+}

@@ -1,4 +1,5 @@
-module cz.osu {
+module cz.osu
+{
     requires javafx.controls;
     requires javafx.fxml;
     requires okhttp3;

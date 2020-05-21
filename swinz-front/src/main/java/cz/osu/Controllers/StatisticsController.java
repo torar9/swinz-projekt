@@ -1,6 +1,6 @@
 package cz.osu.Controllers;
 
-import cz.osu.DatabaseConnection;
+import cz.osu.data.DatabaseConnection;
 import cz.osu.Main;
 import cz.osu.MonthStatCell;
 import cz.osu.data.RoomStats;
@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -61,9 +60,7 @@ public class StatisticsController implements Initializable
     {
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            URL url = new File("src/main/java/cz/osu/fxml/sample.fxml").toURI().toURL();
-            fxmlLoader.setLocation(url);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
 
             Scene scene = new Scene(fxmlLoader.load(), 500, 500);
             Stage stage = new Stage();

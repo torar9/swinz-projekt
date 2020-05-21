@@ -6,9 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.net.URL;
-
 public class Main extends Application
 {
     public static Stage stage;
@@ -16,11 +13,11 @@ public class Main extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        URL url = new File("src/main/java/cz/osu/fxml/sample.fxml").toURI().toURL();
-
-        Parent root = FXMLLoader.load(url);
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
         primaryStage.setTitle("SWINZ");
-        primaryStage.setScene(new Scene(root, 500, 500));
+        Scene scene = new Scene(root, 500, 500);
+        //scene.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
         Main.stage = primaryStage;
     }
