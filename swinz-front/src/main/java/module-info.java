@@ -2,7 +2,7 @@ module cz.osu {
     requires javafx.controls;
     requires javafx.fxml;
     requires okhttp3;
-    requires gson;
+    requires com.google.gson;
     requires java.sql;
 
     opens cz.osu.Controllers;
