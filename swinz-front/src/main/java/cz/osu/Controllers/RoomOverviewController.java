@@ -80,6 +80,7 @@ public class RoomOverviewController implements Initializable
         timer.setCycleCount(Timeline.INDEFINITE);
         timer.play();
 
+        refreshList();
         update();
 
         if(!roomObservableList.isEmpty())
@@ -94,18 +95,9 @@ public class RoomOverviewController implements Initializable
     {
         if(db.testConnection())
         {
-            roomObservableList.clear();
             try
             {
-                ArrayList<Room> list = db.getListOfRooms();
-                for (Room r : list)
-                {
-                    GroupReport report = db.getRoomReport(r);
-                    r.setReport(report);
-                    if(room != null && room.getId() == r.getId())
-                        room = r;
-                    roomObservableList.add(r);
-                }
+                refreshList();
 
                 if(room != null)
                 {
@@ -117,9 +109,8 @@ public class RoomOverviewController implements Initializable
 
                     timeLabel.setText(db.getAvgRoomLightStat(room) + " min");
 
-                    GroupReport gp = room.getReport();
-                    this.consumptionLabel.setText(Double.toString(gp.getPowerConsumption()));
-                    this.tempLabel.setText(Double.toString(gp.getTemp()));
+                    this.consumptionLabel.setText(Double.toString(room.getReport().getPowerConsumption()) + " W");
+                    this.tempLabel.setText(Double.toString(room.getReport().getTemp()) + " °C");
                     this.roomNameLabel.setText(room.getName());
 
                     boolean state = room.isForceHeater();
@@ -140,6 +131,27 @@ public class RoomOverviewController implements Initializable
             {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void refreshList()
+    {
+        try
+        {
+            roomObservableList.clear();
+            ArrayList<Room> list = db.getListOfRooms();
+            for (Room r : list)
+            {
+                GroupReport report = db.getRoomReport(r);
+                r.setReport(report);
+                if(room != null && room.getId() == r.getId())
+                    room = r;
+                roomObservableList.add(r);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -249,17 +261,3 @@ public class RoomOverviewController implements Initializable
         }
     }
 }
-/*
-roomObservableList.clear();
-            try
-            {
-                ArrayList<Room> list = db.getListOfRooms();
-                for (Room r : list)
-                {
-                    GroupReport report = db.getRoomReport(r);
-                    r.setReport(report);
-                    if(room != null && room.getId() == r.getId())
-                        room = r;
-                    roomObservableList.add(r);
-                }
- */

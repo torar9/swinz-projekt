@@ -89,7 +89,7 @@ public class Controller implements Initializable
                 if(!wasOffline)
                     update();
 
-                mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(db.getHeaterStat()) + " dní za poslední 2 týdny");
+                mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(db.getHeaterStat()) + " dní za poslední rok");
 
                 boolean globalHeaterState= db.getGlobalHeaterState();
                 if(globalHeaterState)
