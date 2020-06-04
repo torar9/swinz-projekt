@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b4f23ab-5171-4466-a2f6-2b8cff2fe8a9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/DatabaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/SensorGroupControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/SensorGroupControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/home/statistics/RoomStatsGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/home/statistics/RoomStatsGeneratorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/osu/Controllers/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/osu/Controllers/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/osu/Controllers/RoomOverviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/osu/Controllers/RoomOverviewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/osu/Controllers/StatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/osu/Controllers/StatisticsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cz/osu/data/ServerConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cz/osu/data/ServerConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +169,7 @@
       <workItem from="1591255584583" duration="4304000" />
       <workItem from="1591267285364" duration="1479000" />
       <workItem from="1591279149141" duration="1203000" />
-      <workItem from="1591284517308" duration="3259000" />
+      <workItem from="1591284517308" duration="7170000" />
     </task>
     <servers />
   </component>

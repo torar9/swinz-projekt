@@ -1,5 +1,6 @@
 package cz.osu.swinz.Controllers;
 
+import com.google.gson.Gson;
 import cz.osu.swinz.database.Room;
 import cz.osu.swinz.database.RoomRepository;
 import cz.osu.swinz.home.sensors.GroupReport;
@@ -52,6 +53,17 @@ class SensorGroupControllerTest
             fail();
 
         if(roomRepo.count() <= count)
+            fail();
+    }
+
+    @Test
+    void testGetRoom()
+    {
+        Room r = sens.getRoom(1).getBody();
+
+        if(r.getId() != 1)
+            fail();
+        if(!r.getName().equals("Obývák"))
             fail();
     }
 

@@ -19,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles("test")
 @Transactional
+@ActiveProfiles("test")
 @TestPropertySource(properties = "app.scheduling.enable=false")
 class RoomStatsGeneratorTest
 {
@@ -43,10 +43,10 @@ class RoomStatsGeneratorTest
     @Test
     void getAverageLightTwoWeeks()
     {
-        double expected = 35.4;
+        double expected = 33.2;
         double actual = gen.getAverageLightTwoWeeks(roomRepo.findById(1).get());
 
-        assertEquals(expected, actual);
+        assertEquals(expected, actual, 0.1);
     }
 
     @Test
@@ -64,17 +64,41 @@ class RoomStatsGeneratorTest
         RoomStats stats = gen.getMonthStats(roomRepo.findAll()).get(0);
         System.out.println(stats);
 
+        if(stats.getList().size() != 4)
+            fail();
+
         if(!stats.getMonthName().equals("březen"))
             fail();
+
         RoomMonthStatistics r1 = stats.getList().get(0);
+        RoomMonthStatistics r2 = stats.getList().get(1);
+        RoomMonthStatistics r3 = stats.getList().get(2);
 
         if(!r1.getRoomName().equals("Obývák"))
             fail();
-        if(r1.getAverageDayLight().doubleValue() != 36.0)
+        if(r1.getAverageDayLight().doubleValue() != 34.67)
             fail();
         if(r1.getDaysHeaterOn().intValue() != 1)
             fail();
         if(r1.getPowerConsumption().doubleValue() != 2.06)
+            fail();
+
+        if(!r2.getRoomName().equals("Ložnice"))
+            fail();
+        if(r2.getAverageDayLight().doubleValue() != 2.0)
+            fail();
+        if(r2.getDaysHeaterOn().intValue() != 0)
+            fail();
+        if(r2.getPowerConsumption().doubleValue() != 0.69)
+            fail();
+
+        if(!r3.getRoomName().equals("Dětský pokoj"))
+            fail();
+        if(r3.getAverageDayLight().doubleValue() != 1.0)
+            fail();
+        if(r3.getDaysHeaterOn().intValue() != 0)
+            fail();
+        if(r3.getPowerConsumption().doubleValue() != 0.81)
             fail();
     }
 }
