@@ -88,7 +88,7 @@ public class Controller implements Initializable
                 if(!wasOffline)
                     update();
 
-                mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(db.getHeaterStat()) + " dní za poslední rok");
+                mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(db.getHeaterStatistics()) + " dní za poslední rok");
 
                 boolean globalHeaterState= db.getGlobalHeaterState();
                 if(globalHeaterState)
@@ -102,8 +102,8 @@ public class Controller implements Initializable
                     tempButton.setImage(img);
                 }
 
-                tempLabel.setText(Double.toString(db.getGlobalTemp()));
-                tempSlider.setValue(db.getGlobalTemp());
+                tempLabel.setText(Double.toString(db.getGlobalTemperatureThreshold()));
+                tempSlider.setValue(db.getGlobalTemperatureThreshold());
             }
             catch(Exception e)
             {
@@ -239,7 +239,7 @@ public class Controller implements Initializable
             try
             {
                 double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
-                ServerConnection.getInstance().setGlobalTemp(temp);
+                ServerConnection.getInstance().setGlobaltemperatureThreshold(temp);
                 tempLabel.setText(Double.toString(temp));
             }
             catch(Exception e)

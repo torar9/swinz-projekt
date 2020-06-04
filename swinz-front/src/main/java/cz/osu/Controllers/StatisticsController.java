@@ -38,7 +38,7 @@ public class StatisticsController implements Initializable
         {
             try
             {
-                List<RoomStats> list = connector.getListOfMonthStats();
+                List<RoomStats> list = connector.getRoomStatisticsPerMonth();
 
                 mainStatList.setItems(roomStatList);
                 mainStatList.setCellFactory(studentListView -> new MonthStatCell());

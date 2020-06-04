@@ -107,7 +107,7 @@ public class RoomOverviewController implements Initializable
                         heaterStatusLabel.setText("Topení je zapnuto");
                     else heaterStatusLabel.setText("Topení je vypnuto");
 
-                    timeLabel.setText(connector.getAvgRoomLightStat(room) + " min");
+                    timeLabel.setText(connector.getAverageRoomLightOnTwoWeeksStatistic(room) + " min");
 
                     this.consumptionLabel.setText(Double.toString(room.getReport().getPowerConsumption()) + " W");
                     this.tempLabel.setText(Double.toString(room.getReport().getTemp()) + " °C");
@@ -184,7 +184,7 @@ public class RoomOverviewController implements Initializable
         try
         {
             double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
-            ServerConnection.getInstance().setRoomTargetTemp(room, temp);
+            ServerConnection.getInstance().setRoomThresholdTemperature(room, temp);
             tempSliderLabel.setText(Double.toString(temp));
         }
         catch(Exception e)
@@ -211,7 +211,7 @@ public class RoomOverviewController implements Initializable
             {
                 try
                 {
-                    connector.postNewRoom(name);
+                    connector.createNewRoom(name);
                 }
                 catch (Exception e)
                 {
@@ -229,7 +229,7 @@ public class RoomOverviewController implements Initializable
             boolean state = room.isForceHeater();
             try
             {
-                connector.setRoomHeaterStateForced(room.getId(), !state);
+                connector.setGlobalRoomHeaterState(room.getId(), !state);
                 update();
             }
             catch (Exception e)

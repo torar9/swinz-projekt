@@ -64,7 +64,7 @@ public class ServerConnection
         return result;
     }
 
-    public boolean setRoomHeaterStateForced(int id, boolean state) throws IOException
+    public boolean setGlobalRoomHeaterState(int id, boolean state) throws IOException
     {
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -100,7 +100,7 @@ public class ServerConnection
         return gson.fromJson(data, GroupReport.class);
     }
 
-    public boolean postNewRoom(String name) throws IOException
+    public boolean createNewRoom(String name) throws IOException
     {
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -122,7 +122,7 @@ public class ServerConnection
         return result;
     }
 
-    public double getGlobalTemp() throws IOException
+    public double getGlobalTemperatureThreshold() throws IOException
     {
         String data = getResponse("groups/globalTemp");
 
@@ -131,7 +131,7 @@ public class ServerConnection
         return gson.fromJson(data, Double.class);
     }
 
-    public boolean setGlobalTemp(double temp) throws IOException
+    public boolean setGlobaltemperatureThreshold(double temp) throws IOException
     {
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -184,12 +184,12 @@ public class ServerConnection
         return result;
     }
 
-    public boolean setRoomTargetTemp(Room room, double temp) throws IOException
+    public boolean setRoomThresholdTemperature(Room room, double temp) throws IOException
     {
-        return setRoomTargetTemp(room.getId(), temp);
+        return setRoomThresholdTemperature(room.getId(), temp);
     }
 
-    public boolean setRoomTargetTemp(int id, double temp) throws IOException
+    public boolean setRoomThresholdTemperature(int id, double temp) throws IOException
     {
         RequestBody body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -211,7 +211,7 @@ public class ServerConnection
         return result;
     }
 
-    public int getHeaterStat() throws IOException
+    public int getHeaterStatistics() throws IOException
     {
         String data = getResponse("groups/stats/heater");
 
@@ -220,7 +220,7 @@ public class ServerConnection
         return gson.fromJson(data, Integer.class);
     }
 
-    public double getAvgRoomLightStat(Room room) throws IOException
+    public double getAverageRoomLightOnTwoWeeksStatistic(Room room) throws IOException
     {
         String data = getResponse("groups/" + room.getId() + "/stats/lightWeeks");
 
@@ -229,7 +229,7 @@ public class ServerConnection
         return gson.fromJson(data, Double.class);
     }
 
-    public ArrayList<RoomStats> getListOfMonthStats() throws IOException
+    public ArrayList<RoomStats> getRoomStatisticsPerMonth() throws IOException
     {
         String data = getResponse("groups/stats");
 
