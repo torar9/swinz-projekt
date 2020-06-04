@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 @ExtendWith(SpringExtension.class)
 @Transactional
 @ActiveProfiles("test")
-public class GlobalControllerUnitTest
+public class HomeControllerUnitTest
 {
     @Resource
-    private GlobalController gce;
+    private HomeController gce;
 
     @Mock
     @Autowired

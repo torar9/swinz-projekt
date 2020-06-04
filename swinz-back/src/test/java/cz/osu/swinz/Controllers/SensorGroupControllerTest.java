@@ -1,6 +1,7 @@
 package cz.osu.swinz.Controllers;
 
 import cz.osu.swinz.database.Room;
+import cz.osu.swinz.database.RoomReportRepository;
 import cz.osu.swinz.database.RoomRepository;
 import cz.osu.swinz.home.sensors.GroupReport;
 import org.junit.jupiter.api.Test;

@@ -7,13 +7,11 @@ import cz.osu.swinz.home.statistics.RoomStatsGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-@EnableScheduling
 @RestController
 public class StatisticsController
 {
