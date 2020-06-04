@@ -8,6 +8,8 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityManager;
@@ -22,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @Transactional
+@TestPropertySource(properties = "app.scheduling.enable=false")
 class RoomStatsGeneratorTest
 {
     @Mock
@@ -43,7 +46,7 @@ class RoomStatsGeneratorTest
     @Test
     void getAverageLightTwoWeeks()
     {
-        double expected = 34.6;
+        double expected = 35.4;
         double actual = gen.getAverageLightTwoWeeks(roomRepo.findById(1).get());
 
         assertEquals(expected, actual);
@@ -61,12 +64,20 @@ class RoomStatsGeneratorTest
     @Test
     void getMonthStats()
     {
-        List<RoomStats> stats = gen.getMonthStats(roomRepo.findAll());
+        RoomStats stats = gen.getMonthStats(roomRepo.findAll()).get(0);
+        System.out.println(stats);
 
-        for(RoomStats e : stats)
-        {
-            System.out.println(e);
-        }
-        fail();
+        if(!stats.getMonthName().equals("březen"))
+            fail();
+        RoomMonthStatistics r1 = stats.getList().get(0);
+
+        if(!r1.getRoomName().equals("Obývák"))
+            fail();
+        if(r1.getAverageDayLight().doubleValue() != 36.0)
+            fail();
+        if(r1.getDaysHeaterOn().intValue() != 1)
+            fail();
+        if(r1.getPowerConsumption().doubleValue() != 2.06)
+            fail();
     }
 }

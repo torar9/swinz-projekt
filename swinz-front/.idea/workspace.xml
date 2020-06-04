@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b4f23ab-5171-4466-a2f6-2b8cff2fe8a9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../swinz-back/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/GlobalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/SensorGroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/SensorGroupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/StatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/StatisticsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/main/resources/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/main/resources/application-test.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/GlobalControllerUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/HomeControllerUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/main/java/cz/osu/swinz/Controllers/DatabaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/HomeControllerUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/HomeControllerUnitTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/SensorGroupControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/SensorGroupControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/StatisticsControllerUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/Controllers/StatisticsControllerUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/home/statistics/RoomStatsGeneratorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../swinz-back/src/test/java/cz/osu/swinz/home/statistics/RoomStatsGeneratorTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,7 +46,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../swinz-back" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -175,6 +172,7 @@
       <workItem from="1591255584583" duration="4304000" />
       <workItem from="1591267285364" duration="1479000" />
       <workItem from="1591279149141" duration="1203000" />
+      <workItem from="1591284517308" duration="1050000" />
     </task>
     <servers />
   </component>
@@ -231,12 +229,12 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="801" y="434" width="532" height="294" key="DetectedRootsChooserDialog/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1589067915352" />
-    <state x="743" y="308" width="424" height="491" key="FileChooserDialogImpl" timestamp="1590994483074">
+    <state x="743" y="308" width="424" height="491" key="FileChooserDialogImpl" timestamp="1591284524001">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="743" y="277" width="733" height="483" key="FileChooserDialogImpl/0.0.1920.1038/1920.0.1920.1080@0.0.1920.1038" timestamp="1584376725829" />
     <state x="743" y="278" width="424" height="483" key="FileChooserDialogImpl/0.0.1920.1042/1920.0.1920.1080@0.0.1920.1042" timestamp="1586165060162" />
-    <state x="743" y="308" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1590994483074" />
+    <state x="743" y="308" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.1053/1920.0.1920.1080@0.27.1920.1053" timestamp="1591284524001" />
     <state x="743" y="308" width="733" height="491" key="FileChooserDialogImpl/1920.0.1920.1080/0.27.1920.1053@0.27.1920.1053" timestamp="1590597044412" />
     <state width="1872" height="137" key="GridCell.Tab.0.bottom" timestamp="1591278533046">
       <screen x="0" y="27" width="1920" height="1053" />
