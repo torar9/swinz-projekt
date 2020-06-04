@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
-
 @RestController
 public class SensorGroupController
 {
@@ -19,13 +17,6 @@ public class SensorGroupController
     private RoomRepository roomRepo;
     @Autowired
     private HouseRepository houseRepo;
-
-    @PostConstruct
-    private void initDatabase()
-    {
-        if(houseRepo.count() == 0)
-            houseRepo.save(new House());
-    }
 
     @PostMapping(path="/groups/add")
     public @ResponseBody ResponseEntity<Boolean> addNewRoom(@RequestParam String name) //curl localhost:8080/groups/add -d name=JmenoMistnosti

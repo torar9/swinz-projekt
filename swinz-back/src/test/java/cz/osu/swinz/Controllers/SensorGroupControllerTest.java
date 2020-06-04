@@ -1,7 +1,6 @@
 package cz.osu.swinz.Controllers;
 
 import cz.osu.swinz.database.Room;
-import cz.osu.swinz.database.RoomReportRepository;
 import cz.osu.swinz.database.RoomRepository;
 import cz.osu.swinz.home.sensors.GroupReport;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.annotation.Resource;
