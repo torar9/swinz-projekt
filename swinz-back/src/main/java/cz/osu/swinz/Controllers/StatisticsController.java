@@ -2,8 +2,8 @@ package cz.osu.swinz.Controllers;
 
 import cz.osu.swinz.database.Room;
 import cz.osu.swinz.database.RoomRepository;
-import cz.osu.swinz.home.RoomStats;
-import cz.osu.swinz.home.RoomStatsGenerator;
+import cz.osu.swinz.home.statistics.RoomStats;
+import cz.osu.swinz.home.statistics.RoomStatsGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

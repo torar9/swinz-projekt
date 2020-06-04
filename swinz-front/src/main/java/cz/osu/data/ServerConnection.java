@@ -7,15 +7,20 @@ import okhttp3.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class DatabaseConnection
+public class ServerConnection
 {
-    private final static DatabaseConnection instance = new DatabaseConnection();
+    private final static ServerConnection instance = new ServerConnection();
     private final static String baseURL = "http://localhost:8080/";
     private OkHttpClient client;
 
-    private DatabaseConnection()
+    private ServerConnection()
     {
         client = new OkHttpClient();
+    }
+
+    public static ServerConnection getInstance()
+    {
+        return instance;
     }
 
     private String getResponse(String where) throws IOException
@@ -47,11 +52,6 @@ public class DatabaseConnection
         {
             return false;
         }
-    }
-
-    public static DatabaseConnection getInstance()
-    {
-        return instance;
     }
 
     public ArrayList<Room> getListOfRooms() throws IOException

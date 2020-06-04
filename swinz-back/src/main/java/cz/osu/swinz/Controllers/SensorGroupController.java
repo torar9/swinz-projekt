@@ -1,7 +1,7 @@
 package cz.osu.swinz.Controllers;
 
 import cz.osu.swinz.database.*;
-import cz.osu.swinz.home.*;
+import cz.osu.swinz.home.sensors.GroupReport;
 import cz.osu.swinz.home.sensors.LightSensor;
 import cz.osu.swinz.home.sensors.PowerConsumptionSensor;
 import cz.osu.swinz.home.sensors.TemperatureSensor;

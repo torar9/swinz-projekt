@@ -1,4 +1,4 @@
-package cz.osu.swinz.home;
+package cz.osu.swinz.home.statistics;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -17,7 +17,6 @@ public class RoomMonthStatistics
         this.daysHeaterOn = daysHeaterOn;
         this.powerConsumption = powerConsumption;
     }
-
 
     public BigDecimal getAverageDayLight()
     {

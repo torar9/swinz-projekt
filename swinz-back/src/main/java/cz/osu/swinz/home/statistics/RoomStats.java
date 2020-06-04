@@ -1,4 +1,4 @@
-package cz.osu.swinz.home;
+package cz.osu.swinz.home.statistics;
 
 import java.util.List;
 
