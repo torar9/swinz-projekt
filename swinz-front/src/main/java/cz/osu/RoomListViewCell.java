@@ -1,6 +1,5 @@
 package cz.osu;
 
-import cz.osu.data.DatabaseConnection;
 import cz.osu.data.Room;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
-import java.util.SimpleTimeZone;
 
 public class RoomListViewCell extends ListCell<Room>
 {

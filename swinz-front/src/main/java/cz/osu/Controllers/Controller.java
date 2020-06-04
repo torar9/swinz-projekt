@@ -1,9 +1,8 @@
 package cz.osu.Controllers;
 
-
 import cz.osu.Main;
 import cz.osu.RoomListViewCell;
-import cz.osu.data.DatabaseConnection;
+import cz.osu.data.ServerConnection;
 import cz.osu.data.GroupReport;
 import cz.osu.data.Room;
 import javafx.animation.KeyFrame;
@@ -50,12 +49,12 @@ public class Controller implements Initializable
 
     private ObservableList<Room> roomObservableList;
     private Timeline timer;
-    private DatabaseConnection db;
+    private ServerConnection db;
     private boolean wasOffline;
 
     public Controller()
     {
-        db = DatabaseConnection.getInstance();
+        db = ServerConnection.getInstance();
         roomObservableList = FXCollections.observableArrayList();
     }
 
@@ -240,7 +239,7 @@ public class Controller implements Initializable
             try
             {
                 double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
-                DatabaseConnection.getInstance().setGlobalTemp(temp);
+                ServerConnection.getInstance().setGlobalTemp(temp);
                 tempLabel.setText(Double.toString(temp));
             }
             catch(Exception e)

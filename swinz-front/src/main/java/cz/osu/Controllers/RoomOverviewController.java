@@ -2,7 +2,7 @@ package cz.osu.Controllers;
 
 import cz.osu.Main;
 import cz.osu.RoomOverviewCell;
-import cz.osu.data.DatabaseConnection;
+import cz.osu.data.ServerConnection;
 import cz.osu.data.GroupReport;
 import cz.osu.data.Room;
 import javafx.animation.KeyFrame;
@@ -54,12 +54,12 @@ public class RoomOverviewController implements Initializable
     private ObservableList<Room> roomObservableList;
     private Timeline timer;
     private Room room;
-    private DatabaseConnection db;
+    private ServerConnection connector;
 
     public RoomOverviewController()
     {
         roomObservableList = FXCollections.observableArrayList();
-        db = DatabaseConnection.getInstance();
+        connector = ServerConnection.getInstance();
     }
 
     @Override
@@ -93,7 +93,7 @@ public class RoomOverviewController implements Initializable
 
     private void update()
     {
-        if(db.testConnection())
+        if(connector.testConnection())
         {
             try
             {
@@ -107,7 +107,7 @@ public class RoomOverviewController implements Initializable
                         heaterStatusLabel.setText("Topení je zapnuto");
                     else heaterStatusLabel.setText("Topení je vypnuto");
 
-                    timeLabel.setText(db.getAvgRoomLightStat(room) + " min");
+                    timeLabel.setText(connector.getAvgRoomLightStat(room) + " min");
 
                     this.consumptionLabel.setText(Double.toString(room.getReport().getPowerConsumption()) + " W");
                     this.tempLabel.setText(Double.toString(room.getReport().getTemp()) + " °C");
@@ -139,10 +139,10 @@ public class RoomOverviewController implements Initializable
         try
         {
             roomObservableList.clear();
-            ArrayList<Room> list = db.getListOfRooms();
+            ArrayList<Room> list = connector.getListOfRooms();
             for (Room r : list)
             {
-                GroupReport report = db.getRoomReport(r);
+                GroupReport report = connector.getRoomReport(r);
                 r.setReport(report);
                 if(room != null && room.getId() == r.getId())
                     room = r;
@@ -184,7 +184,7 @@ public class RoomOverviewController implements Initializable
         try
         {
             double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
-            DatabaseConnection.getInstance().setRoomTargetTemp(room, temp);
+            ServerConnection.getInstance().setRoomTargetTemp(room, temp);
             tempSliderLabel.setText(Double.toString(temp));
         }
         catch(Exception e)
@@ -211,7 +211,7 @@ public class RoomOverviewController implements Initializable
             {
                 try
                 {
-                    db.postNewRoom(name);
+                    connector.postNewRoom(name);
                 }
                 catch (Exception e)
                 {
@@ -229,7 +229,7 @@ public class RoomOverviewController implements Initializable
             boolean state = room.isForceHeater();
             try
             {
-                db.setRoomHeaterStateForced(room.getId(), !state);
+                connector.setRoomHeaterStateForced(room.getId(), !state);
                 update();
             }
             catch (Exception e)

@@ -1,6 +1,6 @@
 package cz.osu.Controllers;
 
-import cz.osu.data.DatabaseConnection;
+import cz.osu.data.ServerConnection;
 import cz.osu.Main;
 import cz.osu.MonthStatCell;
 import cz.osu.data.RoomStats;
@@ -22,23 +22,23 @@ public class StatisticsController implements Initializable
 {
     @FXML
     private ListView mainStatList;
-    private DatabaseConnection db;
+    private ServerConnection connector;
     private ObservableList<RoomStats> roomStatList;
 
     public StatisticsController()
     {
-        db = DatabaseConnection.getInstance();
+        connector = ServerConnection.getInstance();
         roomStatList = FXCollections.observableArrayList();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        if(db.testConnection())
+        if(connector.testConnection())
         {
             try
             {
-                List<RoomStats> list = db.getListOfMonthStats();
+                List<RoomStats> list = connector.getListOfMonthStats();
 
                 mainStatList.setItems(roomStatList);
                 mainStatList.setCellFactory(studentListView -> new MonthStatCell());
