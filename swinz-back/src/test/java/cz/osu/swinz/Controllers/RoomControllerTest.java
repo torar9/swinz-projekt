@@ -1,6 +1,5 @@
 package cz.osu.swinz.Controllers;
 
-import com.google.gson.Gson;
 import cz.osu.swinz.database.Room;
 import cz.osu.swinz.database.RoomRepository;
 import cz.osu.swinz.home.sensors.GroupReport;
@@ -25,10 +24,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @ActiveProfiles("test")
 @TestPropertySource(properties = "app.scheduling.enable=false")
-class SensorGroupControllerTest
+class RoomControllerTest
 {
     @Resource
-    private SensorGroupController sens;
+    private RoomController sens;
 
     @Mock
     @Autowired
