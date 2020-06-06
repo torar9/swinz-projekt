@@ -43,7 +43,7 @@ class RoomStatsGeneratorTest
     @Test
     void getAverageLightTwoWeeks()
     {
-        double expected = 33.2;
+        double expected = 28.67;
         double actual = gen.getAverageLightTwoWeeks(roomRepo.findById(1).get());
 
         assertEquals(expected, actual, 0.1);
@@ -76,29 +76,29 @@ class RoomStatsGeneratorTest
 
         if(!r1.getRoomName().equals("Obývák"))
             fail();
-        if(r1.getAverageDayLight().doubleValue() != 34.67)
+        if(r1.getAverageDayLight().doubleValue() != 35.33)
             fail();
         if(r1.getDaysHeaterOn().intValue() != 1)
             fail();
-        if(r1.getPowerConsumption().doubleValue() != 2.06)
+        if(r1.getPowerConsumption().doubleValue() != 2.36)
             fail();
 
         if(!r2.getRoomName().equals("Ložnice"))
             fail();
-        if(r2.getAverageDayLight().doubleValue() != 2.0)
+        if(r2.getAverageDayLight().doubleValue() != 1.0)
             fail();
-        if(r2.getDaysHeaterOn().intValue() != 0)
+        if(r2.getDaysHeaterOn().intValue() != 1)
             fail();
-        if(r2.getPowerConsumption().doubleValue() != 0.69)
+        if(r2.getPowerConsumption().doubleValue() != 20.60)
             fail();
 
         if(!r3.getRoomName().equals("Dětský pokoj"))
             fail();
-        if(r3.getAverageDayLight().doubleValue() != 1.0)
+        if(r3.getAverageDayLight().doubleValue() != 0)
             fail();
         if(r3.getDaysHeaterOn().intValue() != 0)
             fail();
-        if(r3.getPowerConsumption().doubleValue() != 0.81)
+        if(r3.getPowerConsumption().doubleValue() != 31.60)
             fail();
     }
 }
