@@ -58,7 +58,7 @@ public class StatisticsController
         return ResponseEntity.ok(gen.getHeatDaysInYear());
     }
 
-    @Scheduled(cron = "0 0 0 * * *")//Cron, uložení statistik každý den
+    @Scheduled(cron = "0 0 0 * * *")//Cron, načtení statistik do paměti jednou za den
     private void reloadCachedStatistics()
     {
         statList = gen.getMonthStats(roomRepo.findAll());

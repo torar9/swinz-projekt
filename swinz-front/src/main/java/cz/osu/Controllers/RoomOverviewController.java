@@ -244,7 +244,7 @@ public class RoomOverviewController implements Initializable
     {
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/sample.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainView.fxml"));
 
             Scene scene = new Scene(fxmlLoader.load(), 500, 500);
             Stage stage = new Stage();
