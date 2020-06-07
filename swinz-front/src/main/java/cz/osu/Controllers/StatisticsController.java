@@ -4,6 +4,7 @@ import cz.osu.data.ServerConnection;
 import cz.osu.Main;
 import cz.osu.MonthStatCell;
 import cz.osu.data.RoomStats;
+import cz.osu.data.StatisticsManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,35 +24,34 @@ public class StatisticsController implements Initializable
     @FXML
     private ListView mainStatList;
     private ServerConnection connector;
+    private StatisticsManager statManager;
     private ObservableList<RoomStats> roomStatList;
 
     public StatisticsController()
     {
-        connector = ServerConnection.getInstance();
+        connector = new ServerConnection();
         roomStatList = FXCollections.observableArrayList();
+        statManager = new StatisticsManager();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        if(connector.testConnection())
+        try
         {
-            try
-            {
-                List<RoomStats> list = connector.getRoomStatisticsPerMonth();
+            List<RoomStats> list = statManager.getRoomStatisticsPerMonth();
 
-                mainStatList.setItems(roomStatList);
-                mainStatList.setCellFactory(studentListView -> new MonthStatCell());
+            mainStatList.setItems(roomStatList);
+            mainStatList.setCellFactory(studentListView -> new MonthStatCell());
 
-                for (RoomStats stats : list)
-                {
-                    roomStatList.add(stats);
-                }
-            }
-            catch (Exception e)
+            for (RoomStats stats : list)
             {
-                e.printStackTrace();
+                roomStatList.add(stats);
             }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 

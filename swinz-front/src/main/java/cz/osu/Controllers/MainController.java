@@ -2,9 +2,7 @@ package cz.osu.Controllers;
 
 import cz.osu.Main;
 import cz.osu.RoomListViewCell;
-import cz.osu.data.ServerConnection;
-import cz.osu.data.GroupReport;
-import cz.osu.data.Room;
+import cz.osu.data.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -41,21 +39,20 @@ public class MainController implements Initializable
     @FXML
     private ImageView tempButton;
     @FXML
-    private Button roomButton;
-    @FXML
-    private Button statButton;
-    @FXML
     private Label mainHeaterLabel;
 
     private ObservableList<Room> roomObservableList;
     private Timeline timer;
-    private ServerConnection db;
-    private boolean wasOffline;
+    private RoomManager roomManager;
+    private HouseManager houseManager;
+    private StatisticsManager statManager;
 
     public MainController()
     {
-        db = ServerConnection.getInstance();
         roomObservableList = FXCollections.observableArrayList();
+        roomManager = new RoomManager();
+        houseManager = new HouseManager();
+        statManager = new StatisticsManager();
     }
 
     @Override
@@ -81,71 +78,46 @@ public class MainController implements Initializable
 
     private void init()
     {
-        if(db.testConnection())
+        try
         {
-            try
-            {
-                if(!wasOffline)
-                    update();
-
-                mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(db.getHeaterStatistics()) + " dní za poslední rok");
-
-                boolean globalHeaterState= db.getGlobalHeaterState();
-                if(globalHeaterState)
-                {
-                    Image img = new Image("images/status_green.png");
-                    tempButton.setImage(img);
-                }
-                else
-                {
-                    Image img = new Image("images/status_red.png");
-                    tempButton.setImage(img);
-                }
-
-                tempLabel.setText(Double.toString(db.getGlobalTemperatureThreshold()));
-                tempSlider.setValue(db.getGlobalTemperatureThreshold());
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+            mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(statManager.getHeaterStatistics()) + " dní za poslední rok");
+            tempLabel.setText(Double.toString(houseManager.getGlobalTemperatureThreshold()));
+            tempSlider.setValue(houseManager.getGlobalTemperatureThreshold());
         }
-        else wasOffline = true;
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     private void update()
     {
-        if(db.testConnection())
+        roomObservableList.clear();
+        try
         {
-            if(wasOffline)
-                init();
-
-            roomButton.setDisable(false);
-            statButton.setDisable(false);
-            tempSlider.setDisable(false);
-
-            roomObservableList.clear();
-            try
+            boolean globalHeaterState= houseManager.getGlobalHeaterState();
+            if(globalHeaterState)
             {
-                ArrayList<Room> list = db.getListOfRooms();
-                for (Room r : list)
-                {
-                    GroupReport report = db.getRoomReport(r);
-                    r.setReport(report);
-                    roomObservableList.add(r);
-                }
+                Image img = new Image("images/status_green.png");
+                tempButton.setImage(img);
             }
-            catch(Exception e)
+            else
             {
-                e.printStackTrace();
+                Image img = new Image("images/status_red.png");
+                tempButton.setImage(img);
+            }
+
+            ArrayList<Room> list = roomManager.getListOfRooms();
+            for (Room r : list)
+            {
+                GroupReport report = roomManager.getRoomReport(r);
+                r.setReport(report);
+                roomObservableList.add(r);
             }
         }
-        else
+        catch(Exception e)
         {
-            roomButton.setDisable(true);
-            statButton.setDisable(true);
-            tempSlider.setDisable(true);
-            wasOffline = true;
+            e.printStackTrace();
         }
     }
 
@@ -194,58 +166,51 @@ public class MainController implements Initializable
     }
 
     @FXML
-    private void handleTempButtonClick()
-    {
-        if(db.testConnection())
-        {
-            try
-            {
-                boolean state = db.getGlobalHeaterState();
-                db.setGlobalHeaterState(!state);
-
-                if(state)
-                {
-                    Image img = new Image("images/status_red.png");
-                    tempButton.setImage(img);
-                }
-                else
-                {
-                    Image img = new Image("images/status_green.png");
-                    tempButton.setImage(img);
-                }
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @FXML
     private void handleTempSliderDragEvent()
     {
-        if(db.testConnection())
-        {
-            double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
-            tempLabel.setText(Double.toString(temp));
-        }
+        double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
+        tempLabel.setText(Double.toString(temp));
     }
 
     @FXML
     private void handleTempSliderReleaseEvent()
     {
-        if(db.testConnection())
+        try
         {
-            try
+            double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
+            houseManager.setGlobaltemperatureThreshold(temp);
+            tempLabel.setText(Double.toString(temp));
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleTempButtonClick()
+    {
+        timer.pause();
+        try
+        {
+            boolean state = houseManager.getGlobalHeaterState();
+            houseManager.setGlobalHeaterState(!state);
+
+            if(state)
             {
-                double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
-                ServerConnection.getInstance().setGlobaltemperatureThreshold(temp);
-                tempLabel.setText(Double.toString(temp));
+                Image img = new Image("images/status_red.png");
+                tempButton.setImage(img);
             }
-            catch(Exception e)
+            else
             {
-                e.printStackTrace();
+                Image img = new Image("images/status_green.png");
+                tempButton.setImage(img);
             }
         }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        timer.play();
     }
 }

@@ -2,9 +2,7 @@ package cz.osu.Controllers;
 
 import cz.osu.Main;
 import cz.osu.RoomOverviewCell;
-import cz.osu.data.ServerConnection;
-import cz.osu.data.GroupReport;
-import cz.osu.data.Room;
+import cz.osu.data.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -53,13 +51,17 @@ public class RoomOverviewController implements Initializable
 
     private ObservableList<Room> roomObservableList;
     private Timeline timer;
-    private Room room;
-    private ServerConnection connector;
+    private Room currentRoom;
+    private StatisticsManager statManager;
+    private RoomManager roomManager;
+    private HouseManager houseManager;
 
     public RoomOverviewController()
     {
         roomObservableList = FXCollections.observableArrayList();
-        connector = ServerConnection.getInstance();
+        statManager = new StatisticsManager();
+        roomManager = new RoomManager();
+        houseManager = new HouseManager();
     }
 
     @Override
@@ -85,52 +87,49 @@ public class RoomOverviewController implements Initializable
 
         if(!roomObservableList.isEmpty())
         {
-            room = roomObservableList.get(0);
-            this.tempSliderLabel.setText(Double.toString(room.getTargetTemperature()));
-            tempSlider.setValue(room.getTargetTemperature());
+            currentRoom = roomObservableList.get(0);
+            this.tempSliderLabel.setText(Double.toString(currentRoom.getTargetTemperature()));
+            tempSlider.setValue(currentRoom.getTargetTemperature());
         }
     }
 
     private void update()
     {
-        if(connector.testConnection())
+        try
         {
-            try
+            refreshList();
+
+            if(currentRoom != null)
             {
-                refreshList();
+                roomListView.getSelectionModel().select(currentRoom);
 
-                if(room != null)
+                if(currentRoom.getHeaterState())
+                    heaterStatusLabel.setText("Topení je zapnuto");
+                else heaterStatusLabel.setText("Topení je vypnuto");
+
+                timeLabel.setText(statManager.getAverageRoomLightOnTwoWeeksStatistic(currentRoom) + " min");
+
+                this.consumptionLabel.setText(Double.toString(currentRoom.getReport().getPowerConsumption()) + " W");
+                this.tempLabel.setText(Double.toString(currentRoom.getReport().getTemp()) + " °C");
+                this.roomNameLabel.setText(currentRoom.getName());
+
+                boolean state = currentRoom.isForceHeater();
+
+                if(state)
                 {
-                    roomListView.getSelectionModel().select(room);
-
-                    if(room.getHeaterState())
-                        heaterStatusLabel.setText("Topení je zapnuto");
-                    else heaterStatusLabel.setText("Topení je vypnuto");
-
-                    timeLabel.setText(connector.getAverageRoomLightOnTwoWeeksStatistic(room) + " min");
-
-                    this.consumptionLabel.setText(Double.toString(room.getReport().getPowerConsumption()) + " W");
-                    this.tempLabel.setText(Double.toString(room.getReport().getTemp()) + " °C");
-                    this.roomNameLabel.setText(room.getName());
-
-                    boolean state = room.isForceHeater();
-
-                    if(state)
-                    {
-                        Image img = new Image("images/status_green.png");
-                        this.roomHeaterImg.setImage(img);
-                    }
-                    else
-                    {
-                        Image img = new Image("images/status_red.png");
-                        this.roomHeaterImg.setImage(img);
-                    }
+                    Image img = new Image("images/status_green.png");
+                    this.roomHeaterImg.setImage(img);
+                }
+                else
+                {
+                    Image img = new Image("images/status_red.png");
+                    this.roomHeaterImg.setImage(img);
                 }
             }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -139,13 +138,13 @@ public class RoomOverviewController implements Initializable
         try
         {
             roomObservableList.clear();
-            ArrayList<Room> list = connector.getListOfRooms();
+            ArrayList<Room> list = roomManager.getListOfRooms();
             for (Room r : list)
             {
-                GroupReport report = connector.getRoomReport(r);
+                GroupReport report = roomManager.getRoomReport(r);
                 r.setReport(report);
-                if(room != null && room.getId() == r.getId())
-                    room = r;
+                if(currentRoom != null && currentRoom.getId() == r.getId())
+                    currentRoom = r;
                 roomObservableList.add(r);
             }
         }
@@ -163,9 +162,9 @@ public class RoomOverviewController implements Initializable
 
         if(o != null)
         {
-            this.room = (Room) roomListView.getSelectionModel().getSelectedItem();
-            this.tempSliderLabel.setText(Double.toString(room.getTargetTemperature()));
-            tempSlider.setValue(room.getTargetTemperature());
+            this.currentRoom = (Room) roomListView.getSelectionModel().getSelectedItem();
+            this.tempSliderLabel.setText(Double.toString(currentRoom.getTargetTemperature()));
+            tempSlider.setValue(currentRoom.getTargetTemperature());
             update();
         }
         timer.play();
@@ -184,7 +183,7 @@ public class RoomOverviewController implements Initializable
         try
         {
             double temp = Math.round((tempSlider.getValue() * 10.0) / 10.0);
-            ServerConnection.getInstance().setRoomThresholdTemperature(room, temp);
+            roomManager.setRoomThresholdTemperature(currentRoom, temp);
             tempSliderLabel.setText(Double.toString(temp));
         }
         catch(Exception e)
@@ -211,7 +210,7 @@ public class RoomOverviewController implements Initializable
             {
                 try
                 {
-                    connector.createNewRoom(name);
+                    roomManager.createNewRoom(name);
                 }
                 catch (Exception e)
                 {
@@ -224,12 +223,12 @@ public class RoomOverviewController implements Initializable
     @FXML
     private void handleRoomTempForce()
     {
-        if(room != null)
+        if(currentRoom != null)
         {
-            boolean state = room.isForceHeater();
+            boolean state = currentRoom.isForceHeater();
             try
             {
-                connector.setGlobalRoomHeaterState(room.getId(), !state);
+                roomManager.setGlobalRoomHeaterState(currentRoom.getId(), !state);
                 update();
             }
             catch (Exception e)
