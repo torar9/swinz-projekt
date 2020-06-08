@@ -23,13 +23,11 @@ public class StatisticsController implements Initializable
 {
     @FXML
     private ListView mainStatList;
-    private ServerConnection connector;
     private StatisticsManager statManager;
     private ObservableList<RoomStats> roomStatList;
 
     public StatisticsController()
     {
-        connector = new ServerConnection();
         roomStatList = FXCollections.observableArrayList();
         statManager = new StatisticsManager();
     }

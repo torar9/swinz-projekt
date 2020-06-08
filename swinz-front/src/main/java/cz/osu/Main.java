@@ -16,7 +16,6 @@ public class Main extends Application
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/mainView.fxml"));
         primaryStage.setTitle("SWINZ");
         Scene scene = new Scene(root, 500, 500);
-        //scene.getStylesheets().add(getClass().getResource("/styles/style.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
         Main.stage = primaryStage;

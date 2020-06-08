@@ -54,14 +54,12 @@ public class RoomOverviewController implements Initializable
     private Room currentRoom;
     private StatisticsManager statManager;
     private RoomManager roomManager;
-    private HouseManager houseManager;
 
     public RoomOverviewController()
     {
         roomObservableList = FXCollections.observableArrayList();
         statManager = new StatisticsManager();
         roomManager = new RoomManager();
-        houseManager = new HouseManager();
     }
 
     @Override
