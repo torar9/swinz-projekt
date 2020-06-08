@@ -15,10 +15,14 @@ public class RoomStatsGenerator
 {
     private EntityManager ent;
     private Map<Integer, String> months;
+    private List<RoomStats> cachedStatList;
+    private Map<Integer, Double> cachedAverageLightTwoWeeks;
+    private int cachedHeatDays;
 
     public RoomStatsGenerator(EntityManager ent)
     {
         this.ent = ent;
+        cachedAverageLightTwoWeeks = new HashMap<>();
         months = new HashMap<>();
         months.put(1, "leden");
         months.put(2, "únor");
@@ -34,35 +38,19 @@ public class RoomStatsGenerator
         months.put(12, "prosinec");
     }
 
-    public double getAverageLightTwoWeeks(Room room) throws NullPointerException
+    public void reloadCachedData(Iterable<Room> rooms)
     {
-        if(room == null)
-            throw new NullPointerException();
+        cachedAverageLightTwoWeeks.clear();
+        cachedStatList = getUncachedStatList(rooms);
+        cachedHeatDays = getUncachedHeatDays();
 
-        BigDecimal averageLightTwoWeeks = (BigDecimal) ent.createNativeQuery("select avg(Count)\n" +
-                "from(select count(*) as Count\n" +
-                "from room_reports\n" +
-                "where report_date between (now() - INTERVAL 14 day) and now() and room_id = ? and is_light_on = 1\n" +
-                "group by day(report_date)) as Counts;").setParameter(1, room.getId()).getResultList().get(0);
-
-        if(averageLightTwoWeeks == null)
-            averageLightTwoWeeks = new BigDecimal(0);
-
-        averageLightTwoWeeks = averageLightTwoWeeks.setScale(2, RoundingMode.HALF_UP);
-
-        return averageLightTwoWeeks.doubleValue();
+        for(Room e : rooms)
+        {
+            cachedAverageLightTwoWeeks.put(Integer.valueOf(e.getId()), getUncachedAverageLightTwoWeeks(e));
+        }
     }
 
-    public int getHeatDaysInYear()
-    {
-        BigInteger heatDays = (BigInteger) ent.createNativeQuery("select count(distinct day(report_date))\n" +
-                "        from room_reports\n" +
-                "        where report_date >= (sysdate() - interval 1 year) and is_heater_on = 1;").getResultList().get(0);
-
-        return heatDays.intValue();
-    }
-
-    public List<RoomStats> getMonthStats(Iterable<Room> rooms) throws NullPointerException
+    private List<RoomStats> getUncachedStatList(Iterable<Room> rooms)
     {
         if(rooms == null)
             throw new NullPointerException();
@@ -125,5 +113,48 @@ public class RoomStatsGenerator
         }
 
         return globalStats;
+    }
+
+    private double getUncachedAverageLightTwoWeeks(Room room)
+    {
+        if(room == null)
+            throw new NullPointerException();
+
+        BigDecimal averageLightTwoWeeks = (BigDecimal) ent.createNativeQuery("select avg(Count)\n" +
+                "from(select count(*) as Count\n" +
+                "from room_reports\n" +
+                "where report_date between (now() - INTERVAL 14 day) and now() and room_id = ? and is_light_on = 1\n" +
+                "group by day(report_date)) as Counts;").setParameter(1, room.getId()).getResultList().get(0);
+
+        if(averageLightTwoWeeks == null)
+            averageLightTwoWeeks = new BigDecimal(0);
+
+        averageLightTwoWeeks = averageLightTwoWeeks.setScale(2, RoundingMode.HALF_UP);
+
+        return averageLightTwoWeeks.doubleValue();
+    }
+
+    private int getUncachedHeatDays()
+    {
+        BigInteger heatDays = (BigInteger) ent.createNativeQuery("select count(distinct day(report_date))\n" +
+                "        from room_reports\n" +
+                "        where report_date >= (sysdate() - interval 1 year) and is_heater_on = 1;").getResultList().get(0);
+
+        return heatDays.intValue();
+    }
+
+    public double getAverageLightTwoWeeks(Room room) throws NullPointerException
+    {
+        return cachedAverageLightTwoWeeks.get(Integer.valueOf(room.getId()));
+    }
+
+    public int getHeatDaysInYear()
+    {
+        return cachedHeatDays;
+    }
+
+    public List<RoomStats> getMonthStats(Iterable<Room> rooms) throws NullPointerException
+    {
+        return cachedStatList;
     }
 }

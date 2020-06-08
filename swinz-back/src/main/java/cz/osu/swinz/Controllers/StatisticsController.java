@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @EnableScheduling
 @RestController
@@ -26,7 +25,6 @@ public class StatisticsController
     private RoomRepository roomRepo;
 
     private RoomStatsGenerator gen;
-    private List<RoomStats> statList;
 
     @PostConstruct
     private void init()
@@ -38,7 +36,7 @@ public class StatisticsController
     @GetMapping(path="/groups/stats")
     public @ResponseBody ResponseEntity<Iterable<RoomStats>> getRoomStats()
     {
-        return ResponseEntity.ok(statList);
+        return ResponseEntity.ok(gen.getMonthStats(roomRepo.findAll()));
     }
 
     @GetMapping(path="/groups/{id}/stats/lightWeeks")
@@ -61,7 +59,7 @@ public class StatisticsController
     @Scheduled(cron = "0 0 0 * * *")//Cron, načtení statistik do paměti jednou za den
     private void reloadCachedStatistics()
     {
-        statList = gen.getMonthStats(roomRepo.findAll());
+        gen.reloadCachedData(roomRepo.findAll());
     }
 
     @ExceptionHandler({Exception.class})

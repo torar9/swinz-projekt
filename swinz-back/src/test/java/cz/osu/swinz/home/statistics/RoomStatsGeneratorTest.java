@@ -38,6 +38,7 @@ class RoomStatsGeneratorTest
     protected void setUp()
     {
         gen = new RoomStatsGenerator(ent);
+        gen.reloadCachedData(roomRepo.findAll());
     }
 
     @Test
