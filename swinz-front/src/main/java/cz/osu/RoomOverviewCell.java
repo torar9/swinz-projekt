@@ -7,9 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.GridPane;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class RoomOverviewCell extends ListCell<Room>
 {
@@ -35,8 +33,6 @@ public class RoomOverviewCell extends ListCell<Room>
             {
                 try
                 {
-                    URL url = new File("src/main/java/cz/osu/fxml/roomOverviewCell.fxml").toURI().toURL();
-
                     mLLoader = new FXMLLoader(getClass().getResource("/fxml/roomOverviewCell.fxml"));
                     mLLoader.setController(this);
 

@@ -6,7 +6,7 @@ module cz.osu
     requires com.google.gson;
     requires java.sql;
 
-    opens cz.osu.Controllers;
+    opens cz.osu.controllers;
     opens cz.osu.data;
     opens images;
     opens cz.osu;

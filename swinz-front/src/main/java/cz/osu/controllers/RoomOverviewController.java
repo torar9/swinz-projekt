@@ -1,4 +1,4 @@
-package cz.osu.Controllers;
+package cz.osu.controllers;
 
 import cz.osu.Main;
 import cz.osu.RoomOverviewCell;

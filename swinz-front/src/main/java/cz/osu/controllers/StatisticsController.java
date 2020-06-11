@@ -1,6 +1,5 @@
-package cz.osu.Controllers;
+package cz.osu.controllers;
 
-import cz.osu.data.ServerConnection;
 import cz.osu.Main;
 import cz.osu.MonthStatCell;
 import cz.osu.data.RoomStats;
