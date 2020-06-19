@@ -1,0 +1,276 @@
+@startuml
+
+title __SWINZ-FRONT's Class Diagram__\n
+
+
+    namespace z.osu {
+      namespace cells {
+      class cz.osu.cells.MonthStatCell {
+          - consmpLabel : TextArea
+          - heaterLabel : TextArea
+          - lightLabel : TextArea
+          - mLLoader : FXMLLoader
+          - monthLabel : Label
+          - monthStatList : ListView
+          - roomMonthlyStatsList : ObservableList<RoomMonthStatistics>
+          - viewPane : AnchorPane
+          + MonthStatCell()
+          + getRoomMonthlyStatsList()
+          + initialize()
+          # updateItem()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace cells {
+      class cz.osu.cells.RoomListViewCell {
+          ~ imageStatus : ImageView
+          ~ mainListGrid : GridPane
+          ~ mainRoomLabel : Label
+          ~ mainTempLabel : Label
+          - mLLoader : FXMLLoader
+          # updateItem()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace cells {
+      class cz.osu.cells.RoomOverviewCell {
+          ~ mainPane : GridPane
+          - mLLoader : FXMLLoader
+          - roomName : Label
+          # updateItem()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace controllers {
+      class cz.osu.controllers.MainController {
+          - mainHeaterLabel : Label
+          - mainList : ListView
+          - roomObservableList : ObservableList<Room>
+          - tempButton : ImageView
+          - tempLabel : Label
+          - tempSlider : Slider
+          - timer : Timeline
+          + MainController()
+          + initialize()
+          - handleRoomButtonClick()
+          - handleStatButtonClick()
+          - handleTempButtonClick()
+          - handleTempSliderDragEvent()
+          - handleTempSliderReleaseEvent()
+          - init()
+          - update()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace controllers {
+      class cz.osu.controllers.RoomOverviewController {
+          - consumptionLabel : Label
+          - heaterStatusLabel : Label
+          - roomHeaterImg : ImageView
+          - roomListView : ListView
+          - roomNameLabel : Label
+          - roomObservableList : ObservableList<Room>
+          - tempLabel : Label
+          - tempSlider : Slider
+          - tempSliderLabel : Label
+          - timeLabel : Label
+          - timer : Timeline
+          + RoomOverviewController()
+          + initialize()
+          - handleHomeButtonClick()
+          - handleNewButtonClick()
+          - handleOnItemClick()
+          - handleRoomTempForce()
+          - handleTempSliderDragEvent()
+          - handleTempSliderReleaseEvent()
+          - refreshList()
+          - update()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace controllers {
+      class cz.osu.controllers.StatisticsController {
+          - mainStatList : ListView
+          - roomStatList : ObservableList<RoomStats>
+          + StatisticsController()
+          + initialize()
+          - handleHomeButtonClick()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace data {
+      class cz.osu.data.GroupReport {
+          - heaterState : boolean
+          - lightStatus : boolean
+          - powerConsumption : double
+          - temp : double
+          + GroupReport()
+          + getPowerConsumption()
+          + getTemp()
+          + isHeaterState()
+          + isLightStatus()
+          + toString()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace data {
+      class cz.osu.data.HouseManager {
+          + HouseManager()
+          + getGlobalHeaterState()
+          + getGlobalTemperatureThreshold()
+          + setGlobalHeaterState()
+          + setGlobaltemperatureThreshold()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace data {
+      class cz.osu.data.Room {
+          - forceHeater : boolean
+          - heaterState : boolean
+          - id : int
+          - name : String
+          - targetTemperature : double
+          + Room()
+          + getHeaterState()
+          + getId()
+          + getName()
+          + getReport()
+          + getTargetTemperature()
+          + isForceHeater()
+          + setForceHeater()
+          + setHeaterState()
+          + setId()
+          + setName()
+          + setReport()
+          + setTargetTemperature()
+          + toString()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace data {
+      class cz.osu.data.RoomManager {
+          + RoomManager()
+          + createNewRoom()
+          + getListOfRooms()
+          + getRoomReport()
+          + getRoomReport()
+          + setGlobalRoomHeaterState()
+          + setRoomThresholdTemperature()
+          + setRoomThresholdTemperature()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace data {
+      class cz.osu.cells.MonthStatCell.RoomMonthStatCell {
+          - avgHeaterLabel : Label
+          - avgLightLabel : Label
+          - consumptionLabel : Label
+          - mLLoaderSub : FXMLLoader
+          - roomLabel : Label
+          - viewPaneMonth : AnchorPane
+          + initialize()
+          # updateItem()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace data {
+      class cz.osu.data.RoomStats {
+          - list : List<RoomMonthStatistics>
+          - monthName : String
+          + RoomStats()
+          + getList()
+          + getMonthName()
+          + toString()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace data {
+      class cz.osu.data.ServerConnection {
+          {static} - baseURL : String
+          - client : OkHttpClient
+          + ServerConnection()
+          + testConnection()
+          # getResponse()
+          # postRequest()
+      }
+      }
+    }
+
+
+    namespace z.osu {
+      namespace data {
+      class cz.osu.data.StatisticsManager {
+          + StatisticsManager()
+          + getAverageRoomLightOnTwoWeeksStatistic()
+          + getHeaterStatistics()
+          + getRoomStatisticsPerMonth()
+      }
+      }
+    }
+
+
+  cz.osu.controllers.MainController o-- cz.osu.data.HouseManager
+  cz.osu.controllers.MainController o-- cz.osu.data.RoomManager
+  cz.osu.controllers.MainController o-- cz.osu.data.StatisticsManager
+  cz.osu.controllers.RoomOverviewController o-- cz.osu.data.Room
+  cz.osu.controllers.RoomOverviewController o-- cz.osu.data.RoomManager
+  cz.osu.controllers.RoomOverviewController o-- cz.osu.data.StatisticsManager
+  cz.osu.controllers.StatisticsController o-- cz.osu.data.StatisticsManager
+  cz.osu.data.HouseManager -up-|> cz.osu.data.ServerConnection
+  cz.osu.data.Room o-- cz.osu.data.GroupReport
+  cz.osu.data.RoomManager -up-|> cz.osu.data.ServerConnection
+  cz.osu.data.StatisticsManager -up-|> cz.osu.data.ServerConnection
+
+  cz.osu.cells.MonthStatCell +-down- cz.osu.cells.MonthStatCell.RoomMonthStatCell
+
+
+
+  cz.osu.controllers.MainController ..> cz.osu.cells.RoomListViewCell
+  cz.osu.controllers.RoomOverviewController ..> cz.osu.cells.RoomOverviewCell
+  cz.osu.controllers.StatisticsController ..> cz.osu.cells.MonthStatCell
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

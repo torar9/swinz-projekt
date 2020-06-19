@@ -1,0 +1,253 @@
+@startuml
+
+title __SWINZ-FRONT's Class Diagram__\n
+
+package cells {
+      class MonthStatCell {
+          - consmpLabel : TextArea
+          - heaterLabel : TextArea
+          - lightLabel : TextArea
+          - mLLoader : FXMLLoader
+          - monthLabel : Label
+          - monthStatList : ListView
+          - roomMonthlyStatsList : ObservableList<RoomMonthStatistics>
+          - viewPane : AnchorPane
+          + MonthStatCell()
+          + getRoomMonthlyStatsList()
+          + initialize()
+          # updateItem()
+      }
+      }
+
+package cells {
+      class RoomListViewCell {
+          ~ imageStatus : ImageView
+          ~ mainListGrid : GridPane
+          ~ mainRoomLabel : Label
+          ~ mainTempLabel : Label
+          - mLLoader : FXMLLoader
+          # updateItem()
+      }
+      }
+
+package cells {
+      class RoomOverviewCell {
+          ~ mainPane : GridPane
+          - mLLoader : FXMLLoader
+          - roomName : Label
+          # updateItem()
+      }
+}
+
+package controllers {
+      class MainController {
+          - mainHeaterLabel : Label
+          - mainList : ListView
+          - roomObservableList : ObservableList<Room>
+          - tempButton : ImageView
+          - tempLabel : Label
+          - tempSlider : Slider
+          - timer : Timeline
+          + MainController()
+          + initialize()
+          - handleRoomButtonClick()
+          - handleStatButtonClick()
+          - handleTempButtonClick()
+          - handleTempSliderDragEvent()
+          - handleTempSliderReleaseEvent()
+          - init()
+          - update()
+      }
+      }
+
+
+package controllers {
+      class RoomOverviewController {
+          - consumptionLabel : Label
+          - heaterStatusLabel : Label
+          - roomHeaterImg : ImageView
+          - roomListView : ListView
+          - roomNameLabel : Label
+          - roomObservableList : ObservableList<Room>
+          - tempLabel : Label
+          - tempSlider : Slider
+          - tempSliderLabel : Label
+          - timeLabel : Label
+          - timer : Timeline
+          + RoomOverviewController()
+          + initialize()
+          - handleHomeButtonClick()
+          - handleNewButtonClick()
+          - handleOnItemClick()
+          - handleRoomTempForce()
+          - handleTempSliderDragEvent()
+          - handleTempSliderReleaseEvent()
+          - refreshList()
+          - update()
+      }
+      }
+
+
+package controllers {
+      class StatisticsController {
+          - mainStatList : ListView
+          - roomStatList : ObservableList<RoomStats>
+          + StatisticsController()
+          + initialize()
+          - handleHomeButtonClick()
+      }
+      }
+
+
+package data {
+      class GroupReport {
+          - heaterState : boolean
+          - lightStatus : boolean
+          - powerConsumption : double
+          - temp : double
+          + GroupReport()
+          + getPowerConsumption()
+          + getTemp()
+          + isHeaterState()
+          + isLightStatus()
+          + toString()
+      }
+      }
+
+package managers {
+      class HouseManager {
+          + HouseManager()
+          + getGlobalHeaterState()
+          + getGlobalTemperatureThreshold()
+          + setGlobalHeaterState()
+          + setGlobaltemperatureThreshold()
+      }
+      }
+
+package data {
+      class Room {
+          - forceHeater : boolean
+          - heaterState : boolean
+          - id : int
+          - name : String
+          - targetTemperature : double
+          + Room()
+          + getHeaterState()
+          + getId()
+          + getName()
+          + getReport()
+          + getTargetTemperature()
+          + isForceHeater()
+          + setForceHeater()
+          + setHeaterState()
+          + setId()
+          + setName()
+          + setReport()
+          + setTargetTemperature()
+          + toString()
+      }
+      }
+
+package managers {
+      class RoomManager {
+          + RoomManager()
+          + createNewRoom()
+          + getListOfRooms()
+          + getRoomReport()
+          + getRoomReport()
+          + setGlobalRoomHeaterState()
+          + setRoomThresholdTemperature()
+          + setRoomThresholdTemperature()
+      }
+      }
+
+
+package cells {
+      class MonthStatCell.RoomMonthStatCell {
+          - avgHeaterLabel : Label
+          - avgLightLabel : Label
+          - consumptionLabel : Label
+          - mLLoaderSub : FXMLLoader
+          - roomLabel : Label
+          - viewPaneMonth : AnchorPane
+          + initialize()
+          # updateItem()
+      }
+      }
+
+package data {
+      class RoomStats {
+          - list : List<RoomMonthStatistics>
+          - monthName : String
+          + RoomStats()
+          + getList()
+          + getMonthName()
+          + toString()
+      }
+      }
+
+package data {
+      class RoomMonthStatistics {
+            - averageDayLight : BigDecimal
+            - daysHeaterOn : BigInteger
+            - powerConsumption : BigDecimal
+            - roomName : String
+            + RoomMonthStatistics()
+            + getAverageDayLight()
+            + getDaysHeaterOn()
+            + getPowerConsumption()
+            + getRoomName()
+            + toString()
+        }
+        }
+
+package managers {
+      class ServerConnection {
+          {static} - baseURL RoomStats: String
+          - client : OkHttpClient
+          + ServerConnection()
+          + testConnection()
+          # getResponse()
+          # postRequest()
+      }
+}
+
+package managers {
+      class StatisticsManager {
+          + StatisticsManager()
+          + getAverageRoomLightOnTwoWeeksStatistic()
+          + getHeaterStatistics()
+          + getRoomStatisticsPerMonth()
+      }
+      }
+
+
+  MainController o-- HouseManager
+  MainController o-- RoomManager
+  MainController o-- StatisticsManager
+  RoomOverviewController o-- Room
+  RoomOverviewController o-- RoomManager
+  RoomOverviewController o-- StatisticsManager
+  StatisticsController o-- StatisticsManager
+  HouseManager -up-|> ServerConnection
+  Room o-- GroupReport
+  RoomManager -up-|> ServerConnection
+  StatisticsManager -up-|> ServerConnection
+
+  MonthStatCell +-down- MonthStatCell.RoomMonthStatCell
+
+
+
+  controllers ..> RoomListViewCell
+  controllers ..> MonthStatCell
+  controllers ..> RoomOverviewCell
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
