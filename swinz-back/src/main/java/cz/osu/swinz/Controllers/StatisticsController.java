@@ -36,7 +36,7 @@ public class StatisticsController
     @GetMapping(path="/groups/stats")
     public @ResponseBody ResponseEntity<Iterable<RoomStats>> getRoomStats()
     {
-        return ResponseEntity.ok(gen.getMonthStats(roomRepo.findAll()));
+        return ResponseEntity.ok(gen.getCachedMonthStats());
     }
 
     @GetMapping(path="/groups/{id}/stats/lightWeeks")
@@ -45,7 +45,17 @@ public class StatisticsController
         if(roomRepo.findById(id).isPresent())
         {
             Room room = roomRepo.findById(id).get();
-            return ResponseEntity.ok(gen.getAverageLightTwoWeeks(room));
+            double tmp;
+            try
+            {
+                tmp = gen.getCachedAverageLightTwoWeeks(room);
+            }
+            catch(Exception e)
+            {
+                reloadCachedStatistics();
+                tmp = gen.getCachedAverageLightTwoWeeks(room);
+            }
+            return ResponseEntity.ok(tmp);
         }
         else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
@@ -53,7 +63,7 @@ public class StatisticsController
     @GetMapping(path="/groups/stats/heater")
     public @ResponseBody ResponseEntity<Integer> getHeaterInYear()
     {
-        return ResponseEntity.ok(gen.getHeatDaysInYear());
+        return ResponseEntity.ok(gen.getCachedHeatDaysInYear());
     }
 
     @Scheduled(cron = "0 0 0 * * *")//Cron, načtení statistik do paměti jednou za den

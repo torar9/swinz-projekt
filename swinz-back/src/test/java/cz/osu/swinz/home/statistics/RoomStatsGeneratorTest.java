@@ -44,8 +44,8 @@ class RoomStatsGeneratorTest
     @Test
     void getAverageLightTwoWeeks()
     {
-        double expected = 28.67;
-        double actual = gen.getAverageLightTwoWeeks(roomRepo.findById(1).get());
+        double expected = 0.0;
+        double actual = gen.getCachedAverageLightTwoWeeks(roomRepo.findById(1).get());
 
         assertEquals(expected, actual, 0.1);
     }
@@ -54,7 +54,7 @@ class RoomStatsGeneratorTest
     void getHeatDaysInYear()
     {
         int expected = 16;
-        int actual = gen.getHeatDaysInYear();
+        int actual = gen.getCachedHeatDaysInYear();
 
         assertEquals(expected, actual);
     }
@@ -62,7 +62,7 @@ class RoomStatsGeneratorTest
     @Test
     void getMonthStats()
     {
-        RoomStats stats = gen.getMonthStats(roomRepo.findAll()).get(0);
+        RoomStats stats = gen.getCachedMonthStats().get(0);
         System.out.println(stats);
 
         if(stats.getList().size() != 4)

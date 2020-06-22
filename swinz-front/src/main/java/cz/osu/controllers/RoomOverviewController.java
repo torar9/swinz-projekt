@@ -1,7 +1,7 @@
 package cz.osu.controllers;
 
 import cz.osu.Main;
-import cz.osu.RoomOverviewCell;
+import cz.osu.cells.RoomOverviewCell;
 import cz.osu.data.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

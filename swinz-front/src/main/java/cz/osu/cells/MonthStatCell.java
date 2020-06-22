@@ -1,4 +1,4 @@
-package cz.osu;
+package cz.osu.cells;
 
 import cz.osu.data.RoomMonthStatistics;
 import cz.osu.data.RoomStats;

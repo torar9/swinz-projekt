@@ -143,17 +143,17 @@ public class RoomStatsGenerator
         return heatDays.intValue();
     }
 
-    public double getAverageLightTwoWeeks(Room room) throws NullPointerException
+    public double getCachedAverageLightTwoWeeks(Room room) throws NullPointerException
     {
         return cachedAverageLightTwoWeeks.get(Integer.valueOf(room.getId()));
     }
 
-    public int getHeatDaysInYear()
+    public int getCachedHeatDaysInYear()
     {
         return cachedHeatDays;
     }
 
-    public List<RoomStats> getMonthStats(Iterable<Room> rooms) throws NullPointerException
+    public List<RoomStats> getCachedMonthStats() throws NullPointerException
     {
         return cachedStatList;
     }

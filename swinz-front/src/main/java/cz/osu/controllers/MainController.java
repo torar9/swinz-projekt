@@ -1,7 +1,7 @@
 package cz.osu.controllers;
 
 import cz.osu.Main;
-import cz.osu.RoomListViewCell;
+import cz.osu.cells.RoomListViewCell;
 import cz.osu.data.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -79,7 +79,7 @@ public class MainController implements Initializable
     {
         try
         {
-            mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + Integer.toString(statManager.getHeaterStatistics()) + " dní za poslední rok");
+            mainHeaterLabel.setText("Bylo nutno zapnout vytápění " + statManager.getHeaterStatistics() + " dní za poslední rok");
             tempLabel.setText(Double.toString(houseManager.getGlobalTemperatureThreshold()));
             tempSlider.setValue(houseManager.getGlobalTemperatureThreshold());
         }

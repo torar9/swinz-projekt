@@ -1,7 +1,7 @@
 package cz.osu.controllers;
 
 import cz.osu.Main;
-import cz.osu.MonthStatCell;
+import cz.osu.cells.MonthStatCell;
 import cz.osu.data.RoomStats;
 import cz.osu.data.StatisticsManager;
 import javafx.collections.FXCollections;

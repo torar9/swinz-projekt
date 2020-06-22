@@ -10,5 +10,6 @@ module cz.osu
     opens cz.osu.data;
     opens images;
     opens cz.osu;
+    opens cz.osu.cells;
     exports cz.osu;
 }
